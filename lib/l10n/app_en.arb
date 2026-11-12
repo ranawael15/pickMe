@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+  "appName": "PickMe",
+  "login": "Login",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "home": "Home",
+  "profile": "Profile",
+  "budget": "Your Budget",
+  "chooseDestination": "Choose Destination",
+  "tripHistory": "Trip History",
+  "settings": "Settings",
+  "language": "Language",
+  "lightMode": "Light Mode",
+  "darkMode": "Dark Mode"
+}
