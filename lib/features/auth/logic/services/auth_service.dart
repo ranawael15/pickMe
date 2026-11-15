@@ -129,6 +129,7 @@ class AuthService {
   }) async {
     await supabase.auth.resetPasswordForEmail(
       email.trim(),
+      redirectTo: 'pickmeapp://reset-password',
     );
   }
 
@@ -139,4 +140,7 @@ class AuthService {
       UserAttributes(password: newPassword),
     );
   }
+
+
+
 }

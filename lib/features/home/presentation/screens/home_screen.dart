@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pick_me/core/utils/auth_dialog.dart';
 import 'package:pick_me/features/auth/logic/services/auth_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -28,9 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Logout failed: $e')),
-      );
+      showAuthDialog(context, message: 'Logout failed: $e');
     }
   }
 
