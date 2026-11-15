@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
+import 'package:pick_me/core/utils/auth_dialog.dart';
 import 'package:pick_me/features/auth/logic/services/auth_service.dart';
 import 'package:pick_me/features/auth/presentation/screens/login_screen.dart';
 import 'package:pick_me/features/auth/presentation/widgets/input_field_widget.dart';
@@ -50,11 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Account created successfully!'),
-        ),
-      );
+      showAuthDialog(context, message: 'Account created successfully!');
 
       Navigator.pushReplacement(
         context,
@@ -67,11 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-        ),
-      );
+    showAuthDialog(context, message: e.toString());
 
     } finally {
 
@@ -99,6 +92,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: AppColors.primaryPale,
+
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -116,7 +111,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   "assets/images/pickme_small.png",
                 ),
 
-                const Text("Join pickme"),
+                const Text("Join pickme",
+                  style:TextStyle(
+                    fontSize: 35,
+                    fontWeight: .bold
+                  ) ,),
 
                 const Text(
                   "Plan customized Egyptian adventures tailored exactly to your budget.",
@@ -216,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 InputFieldWidget(
                   text: "Confirm Password",
                   hintText: "Confirm your password",
-                  prefixIcon: Icons.shield,
+                  prefixIcon: Icons.shield_outlined,
                   controller: _confirmPasswordController,
 
                   obscureText: obscureConfirmPassword,
