@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class InputFieldWidget extends StatelessWidget {
-
   final String hintText;
   final IconData prefixIcon;
   final String text;
@@ -33,11 +32,9 @@ class InputFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         Text(text),
 
         TextFormField(
@@ -48,12 +45,12 @@ class InputFieldWidget extends StatelessWidget {
           onChanged: onChanged,
           keyboardType: keyboardType,
 
+          style: const TextStyle(color: Colors.black),
+
           decoration: InputDecoration(
             hintText: hintText,
 
-            hintStyle: const TextStyle(
-              color: Color.fromARGB(127, 76, 70, 55),
-            ),
+            hintStyle: const TextStyle(color: Color.fromARGB(127, 76, 70, 55)),
 
             fillColor: const Color(0xFFFFFFFF),
             filled: true,
@@ -72,4 +69,3 @@ class InputFieldWidget extends StatelessWidget {
     );
   }
 }
-
