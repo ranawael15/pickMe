@@ -5,8 +5,13 @@ import '../../trip_request/logic/cubit/trip_request_cubit.dart';
 import 'budget_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
 
+  final String userName;
+
+  const HomeScreen({
+    super.key,
+    required this.userName,
+  });
   static const Color backgroundColor = Color(0xFFFFF8F4);
   static const Color yellowColor = Color(0xFFF8D967);
   static const Color darkBrown = Color(0xFF302318);
@@ -58,10 +63,10 @@ class HomeScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Morning, Sarah! 👋',
-                      style: TextStyle(
+                      'Morning, $userName! 👋',
+                      style: const TextStyle(
                         color: darkBrown,
                         fontSize: 21,
                         fontWeight: FontWeight.bold,

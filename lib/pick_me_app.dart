@@ -45,7 +45,13 @@ class PickMeApp extends StatelessWidget {
 
             '/register': (context) => RegisterScreen(),
 
-            '/home': (context) => const HomeScreen(),
+            '/home': (context) {
+              final userName =
+                  ModalRoute.of(context)!.settings.arguments as String? ??
+                      'User';
+
+              return HomeScreen(userName: userName);
+            },
 
             '/admin': (context) {
               final userName =

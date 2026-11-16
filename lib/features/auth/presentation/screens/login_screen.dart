@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
+import 'package:pick_me/core/utils/auth_dialog.dart';
 
 import 'package:pick_me/features/auth/presentation/screens/register_Screen.dart';
 import 'package:pick_me/features/auth/presentation/widgets/input_field_widget.dart';
@@ -26,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
 
   Future<void> _submitForm() async {
+
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -34,7 +36,13 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoading = true;
     });
 
+
+
     try {
+      setState(() {
+        isLoading = true;
+      });
+
       final user = await _authService.login(
         email: _emailController.text,
         password: _passwordController.text,
@@ -42,28 +50,27 @@ class _LoginScreenState extends State<LoginScreen> {
 
       await _authService.saveRememberMe(checkBox);
 
-      final userName = user.userMetadata?['full_name']?.toString().trim();
+      final userName =
+      user.userMetadata?['full_name']?.toString().trim();
 
       final displayName = (userName == null || userName.isEmpty)
           ? (user.email ?? '').split('@').first
           : userName;
 
-      final isAdmin = (user.email ?? '').toLowerCase().contains('@admin');
+      final isAdmin =
+      (user.email ?? '').toLowerCase().contains('@admin');
 
       if (!mounted) return;
 
       Navigator.pushNamedAndRemoveUntil(
         context,
         isAdmin ? '/admin' : '/home',
-        (route) => false,
+            (route) => false,
         arguments: displayName,
       );
-    } catch (e) {
-      if (!mounted) return;
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    } catch (e) {
+      showAuthDialog(context, message: e.toString());
     } finally {
       if (mounted) {
         setState(() {
@@ -71,8 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     }
-  }
 
+
+
+  }
   @override
   void dispose() {
     _emailController.dispose();
