@@ -1,25 +1,18 @@
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-
   final supabase = Supabase.instance.client;
-
-  // ========== REGISTER ==========
 
   Future<void> signUp({
     required String name,
     required String email,
     required String password,
   }) async {
-
     final response = await supabase.auth.signUp(
       email: email.trim(),
       password: password,
-      data: {
-        'full_name': name.trim(),
-      },
+      data: {'full_name': name.trim()},
     );
 
     if (response.user == null) {
@@ -27,14 +20,7 @@ class AuthService {
     }
   }
 
-
-  // ========== LOGIN ==========
-
-
-  Future<User> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<User> login({required String email, required String password}) async {
     final response = await supabase.auth.signInWithPassword(
       email: email.trim(),
       password: password,
@@ -49,59 +35,45 @@ class AuthService {
     return user;
   }
 
-
-
-  // ========== REMEMBER ME ==========
-
   Future<void> saveRememberMe(bool value) async {
-
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setBool('remember_me', value);
 
     if (value) {
+      final expiry = DateTime.now().add(const Duration(days: 7));
 
-      final expiry = DateTime.now().add(
-        const Duration(days: 7),
-      );
-
-      await prefs.setString(
-        'session_expiry',
-        expiry.toIso8601String(),
-      );
-
+      await prefs.setString('session_expiry', expiry.toIso8601String());
     } else {
-
       await prefs.remove('session_expiry');
     }
   }
 
-
-  // ========== CHECK REMEMBER ME ==========
-
   Future<bool> checkRememberMe() async {
-
     final prefs = await SharedPreferences.getInstance();
 
-    final rememberMe =
-        prefs.getBool('remember_me') ?? false;
+    final rememberMe = prefs.getBool('remember_me') ?? false;
 
     if (!rememberMe) {
       await supabase.auth.signOut();
       return false;
     }
 
-    final expiryString =
-    prefs.getString('session_expiry');
+    final expiryString = prefs.getString('session_expiry');
 
     if (expiryString == null) {
       await supabase.auth.signOut();
       return false;
     }
 
-    final expiry = DateTime.parse(expiryString);
+    try {
+      final expiry = DateTime.parse(expiryString);
 
-    if (!DateTime.now().isBefore(expiry)) {
+      if (!DateTime.now().isBefore(expiry)) {
+        await supabase.auth.signOut();
+        return false;
+      }
+    } catch (_) {
       await supabase.auth.signOut();
       return false;
     }
@@ -109,11 +81,7 @@ class AuthService {
     return supabase.auth.currentSession != null;
   }
 
-
-  // ========== LOGOUT ==========
-
   Future<void> logout() async {
-
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.remove('remember_me');
@@ -122,21 +90,11 @@ class AuthService {
     await supabase.auth.signOut();
   }
 
-
-
-  Future<void> forgotPassword({
-    required String email,
-  }) async {
-    await supabase.auth.resetPasswordForEmail(
-      email.trim(),
-    );
+  Future<void> forgotPassword({required String email}) async {
+    await supabase.auth.resetPasswordForEmail(email.trim());
   }
 
-
-
   Future<void> updatePassword(String newPassword) async {
-    await supabase.auth.updateUser(
-      UserAttributes(password: newPassword),
-    );
+    await supabase.auth.updateUser(UserAttributes(password: newPassword));
   }
 }

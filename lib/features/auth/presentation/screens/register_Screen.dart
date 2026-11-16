@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
-import 'package:pick_me/features/auth/logic/services/auth_service.dart';
 import 'package:pick_me/features/auth/presentation/screens/login_screen.dart';
 import 'package:pick_me/features/auth/presentation/widgets/input_field_widget.dart';
 
+import '../../services/auth_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -13,7 +13,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
@@ -28,10 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool passwordsMatch = false;
   bool isLoading = false;
 
-
-
   Future<void> _submitForm() async {
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -41,40 +37,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
 
     try {
-
       await _authService.signUp(
-        name: _nameController.text,
-        email: _emailController.text,
+        name: _nameController.text.trim(),
+        email: _emailController.text.trim(),
         password: _passwordController.text,
       );
 
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Account created successfully!'),
-        ),
+        const SnackBar(content: Text('Account created successfully!')),
       );
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
-
     } catch (e) {
-
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-        ),
-      );
-
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     } finally {
-
       if (mounted) {
         setState(() {
           isLoading = false;
@@ -82,7 +67,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     }
   }
-
 
   @override
   void dispose() {
@@ -94,27 +78,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
         child: Form(
           key: _formKey,
-
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(15.0),
-
             child: Column(
               spacing: 25,
               crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
-
-                Image.asset(
-                  "assets/images/pickme_small.png",
-                ),
+                Image.asset("assets/images/pickme_small.png"),
 
                 const Text("Join pickme"),
 
@@ -122,16 +98,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   "Plan customized Egyptian adventures tailored exactly to your budget.",
                 ),
 
-
-
                 InputFieldWidget(
                   text: "Full Name",
                   hintText: "e.g. Sarah Mansour",
                   prefixIcon: Icons.person_outline,
                   controller: _nameController,
-
                   validator: (value) {
-
                     if (value == null || value.trim().isEmpty) {
                       return 'Please enter your name';
                     }
@@ -140,17 +112,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
 
-
-
                 InputFieldWidget(
                   text: "Email Address",
                   hintText: "e.g. sarah.traveler@gmail.com",
                   prefixIcon: Icons.email_outlined,
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-
                   validator: (value) {
-
                     if (value == null || value.trim().isEmpty) {
                       return 'Please enter your email';
                     }
@@ -165,26 +133,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
 
-
-
                 InputFieldWidget(
                   text: "Create Password",
                   hintText: "Enter your password",
                   prefixIcon: Icons.lock,
                   controller: _passwordController,
-
                   obscureText: obscurePassword,
-
                   onChanged: (value) {
                     setState(() {
                       passwordsMatch =
                           value.isNotEmpty &&
-                              value == _confirmPasswordController.text;
+                          value == _confirmPasswordController.text;
                     });
                   },
-
                   validator: (value) {
-
                     if (value == null || value.isEmpty) {
                       return 'Please enter a password';
                     }
@@ -195,42 +157,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     return null;
                   },
-
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
                         obscurePassword = !obscurePassword;
                       });
                     },
-
                     icon: Icon(
-                      obscurePassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
+                      obscurePassword ? Icons.visibility_off : Icons.visibility,
                     ),
                   ),
                 ),
-
-
 
                 InputFieldWidget(
                   text: "Confirm Password",
                   hintText: "Confirm your password",
                   prefixIcon: Icons.shield,
                   controller: _confirmPasswordController,
-
                   obscureText: obscureConfirmPassword,
-
                   onChanged: (value) {
                     setState(() {
                       passwordsMatch =
-                          value.isNotEmpty &&
-                              value == _passwordController.text;
+                          value.isNotEmpty && value == _passwordController.text;
                     });
                   },
-
                   validator: (value) {
-
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your password';
                     }
@@ -241,48 +192,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     return null;
                   },
-
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        obscureConfirmPassword =
-                        !obscureConfirmPassword;
+                        obscureConfirmPassword = !obscureConfirmPassword;
                       });
                     },
-
                     icon: Icon(
                       passwordsMatch
                           ? Icons.check_circle
                           : Icons.check_circle_outline,
-                      color: passwordsMatch
-                          ? Colors.lightGreen
-                          : null,
+                      color: passwordsMatch ? Colors.lightGreen : null,
                     ),
                   ),
                 ),
 
-
-
                 SizedBox(
                   width: double.infinity,
-
                   child: MaterialButton(
                     color: AppColors.primary,
-
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-
                     onPressed: isLoading ? null : _submitForm,
-
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
-
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-
                         children: [
-
                           Text(
                             isLoading
                                 ? "Creating Account..."
@@ -294,26 +231,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
 
-
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-
                   children: [
-
                     const Text("Already exploring with us ?   "),
-
                     GestureDetector(
                       onTap: () {
-
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
+                            builder: (context) => const LoginScreen(),
                           ),
                         );
                       },
-
                       child: const Text("SignIn"),
                     ),
                   ],

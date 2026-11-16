@@ -1,6 +1,19 @@
-part of 'trip_planning_cubit.dart';
+import '../../data/models/generated_plan.dart';
 
-@immutable
-sealed class TripPlanningState {}
+abstract class PlannerState {}
 
-final class TripPlanningInitial extends TripPlanningState {}
+class PlannerInitial extends PlannerState {}
+
+class PlannerLoading extends PlannerState {}
+
+class PlannerSuccess extends PlannerState {
+  final List<GeneratedPlan> plans;
+
+  PlannerSuccess(this.plans);
+}
+
+class PlannerError extends PlannerState {
+  final String message;
+
+  PlannerError(this.message);
+}

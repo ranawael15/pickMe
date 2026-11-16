@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:pick_me/features/auth/logic/services/auth_service.dart';
+
+import '../../services/auth_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   final authService = AuthService();
 
   @override
@@ -41,17 +41,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
       final userName = (name == null || name.trim().isEmpty)
           ? (user.email ?? '').split('@').first
-          : name;
+          : name.trim();
 
-      final isAdmin =
-      (user.email ?? '').toLowerCase().contains('@admin');
+      final isAdmin = (user.email ?? '').toLowerCase().contains('@admin');
 
       Navigator.pushReplacementNamed(
         context,
         isAdmin ? '/admin' : '/home',
         arguments: userName,
       );
-
     } catch (e) {
       if (!mounted) return;
 
@@ -61,17 +59,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset("assets/images/pickme_logo.png"),
-            ],
-          )
+            children: [Image.asset("assets/images/pickme_logo.png")],
+          ),
         ],
       ),
     );
