@@ -27,6 +27,7 @@ class AuthService {
     );
 
     final user = response.user;
+    print(user);
 
     if (user == null) {
       throw Exception('Login failed');
