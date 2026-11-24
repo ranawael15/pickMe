@@ -35,19 +35,72 @@ class AuthService {
     return user;
   }
 
+  // Future<void> saveRememberMe(bool value) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //
+  //   await prefs.setBool('remember_me', value);
+  //
+  //   if (value) {
+  //     final expiry = DateTime.now().add(const Duration(days: 7));
+  //
+  //     await prefs.setString('session_expiry', expiry.toIso8601String());
+  //   } else {
+  //     await prefs.remove('session_expiry');
+  //   }
+  // }
+
+
   Future<void> saveRememberMe(bool value) async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setBool('remember_me', value);
 
     if (value) {
-      final expiry = DateTime.now().add(const Duration(days: 7));
+      final expiry = DateTime.now().add(
+        const Duration(days: 30),
+      );
 
-      await prefs.setString('session_expiry', expiry.toIso8601String());
+      await prefs.setString(
+        'session_expiry',
+        expiry.toIso8601String(),
+      );
     } else {
       await prefs.remove('session_expiry');
     }
   }
+
+  // Future<bool> checkRememberMe() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //
+  //   final rememberMe = prefs.getBool('remember_me') ?? false;
+  //
+  //   if (!rememberMe) {
+  //     await supabase.auth.signOut();
+  //     return false;
+  //   }
+  //
+  //   final expiryString = prefs.getString('session_expiry');
+  //
+  //   if (expiryString == null) {
+  //     await supabase.auth.signOut();
+  //     return false;
+  //   }
+  //
+  //   try {
+  //     final expiry = DateTime.parse(expiryString);
+  //
+  //     if (!DateTime.now().isBefore(expiry)) {
+  //       await supabase.auth.signOut();
+  //       return false;
+  //     }
+  //   } catch (_) {
+  //     await supabase.auth.signOut();
+  //     return false;
+  //   }
+  //
+  //   return supabase.auth.currentSession != null;
+  // }
+
 
   Future<bool> checkRememberMe() async {
     final prefs = await SharedPreferences.getInstance();
@@ -55,26 +108,23 @@ class AuthService {
     final rememberMe = prefs.getBool('remember_me') ?? false;
 
     if (!rememberMe) {
-      await supabase.auth.signOut();
       return false;
     }
 
     final expiryString = prefs.getString('session_expiry');
 
     if (expiryString == null) {
-      await supabase.auth.signOut();
       return false;
     }
 
-    try {
-      final expiry = DateTime.parse(expiryString);
+    final expiry = DateTime.tryParse(expiryString);
 
-      if (!DateTime.now().isBefore(expiry)) {
-        await supabase.auth.signOut();
-        return false;
-      }
-    } catch (_) {
+    if (expiry == null || !DateTime.now().isBefore(expiry)) {
+      await prefs.setBool('remember_me', false);
+      await prefs.remove('session_expiry');
+
       await supabase.auth.signOut();
+
       return false;
     }
 

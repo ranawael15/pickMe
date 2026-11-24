@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pick_me/features/auth/logic/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../trip_request/logic/cubit/trip_request_cubit.dart';
 import 'budget_screen.dart';
@@ -48,6 +50,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider=Provider.of<AuthProvider>(context);
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -58,9 +62,9 @@ class HomeScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                   Expanded(
                     child: Text(
-                      'Morning, Sarah! 👋',
+                      'Morning, ${authProvider.user!.userMetadata?['full_name']?.toString().trim()}! 👋',
                       style: TextStyle(
                         color: darkBrown,
                         fontSize: 21,
@@ -68,9 +72,17 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const CircleAvatar(
+                  CircleAvatar(
                     backgroundColor: yellowColor,
-                    child: Icon(Icons.person, color: darkBrown),
+                    child: IconButton(
+                      icon: const Icon(Icons.person, color: darkBrown),
+                      onPressed: (){
+                        Navigator.pushNamed(
+                          context,
+                          "/profile",
+                        );
+
+                      },),
                   ),
                 ],
               ),

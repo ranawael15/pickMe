@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pick_me/features/auth/logic/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:pick_me/pick_me_app.dart';
 
@@ -12,5 +14,7 @@ Future<void> main() async {
     publishableKey: SupabaseConfig.supabasepublishableKey,
   );
 
-  runApp(const PickMeApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => AuthProvider(),
+      child: const PickMeApp()));
 }

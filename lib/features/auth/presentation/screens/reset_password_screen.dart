@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
 import 'package:pick_me/core/utils/auth_dialog.dart';
-import 'package:pick_me/features/auth/logic/services/auth_service.dart';
 import 'package:pick_me/features/auth/presentation/widgets/input_field_widget.dart';
+import 'package:pick_me/features/auth/services/auth_service.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
