@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pick_me/features/admin/profile/admin_profile.dart';
 
 import '../auth/services/auth_service.dart';
 
@@ -40,6 +41,18 @@ class _HomeAdminState extends State<HomeAdmin> {
                 handleLogout();
               },
               child: Text("logout"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AdminProfile(),
+                  ),
+                );
+              },
+              child: Text("admin"),
             ),
           ],
         ),

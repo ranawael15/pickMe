@@ -1,13 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
+import 'package:pick_me/core/utils/auth_dialog.dart';
 import 'package:pick_me/core/widgets/auth_button.dart';
+import 'package:pick_me/features/auth/logic/provider/auth_provider.dart';
+import 'package:pick_me/features/auth/services/auth_service.dart';
+import 'package:pick_me/features/profile/presentation/screens/edit_profile.dart';
+import 'package:pick_me/features/profile/presentation/widgets/profile_navigator.dart';
+import 'package:provider/provider.dart';
 
-class AdminProfile extends StatelessWidget {
+class AdminProfile extends StatefulWidget {
   const AdminProfile({super.key});
 
   @override
+  State<AdminProfile> createState() => _AdminProfileState();
+}
+
+class _AdminProfileState extends State<AdminProfile> {
+  Future<void> handleLogout() async {
+    try {
+      await AuthService().logout();
+
+      if (!mounted) return;
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/login',
+            (route) => false,
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      showAuthDialog(context, message: 'Logout failed: $e');
+    }
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+    final authProvider=Provider.of<AuthProvider>(context);
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -31,13 +63,20 @@ class AdminProfile extends StatelessWidget {
                 spacing: 10,
                 crossAxisAlignment: .start,
                 children: [
-                    CircleAvatar(
-                      child: Icon(Icons.person),
-                      radius: 60,
-
-                    ),
-                  Text("Sulaf amer",style: TextStyle(fontSize: 25,fontWeight: .bold)),
-                  AuthButton(onPressed:(){}, text:"Edit profile info", color: Color(0xffEBDEC7))
+                  CircleAvatar(
+                    backgroundColor:  AppColors.backgroundColor,
+                    radius: 50,
+                    child: Icon(Icons.person,size: 80,color: Colors.brown,),
+                  ),
+                  Text(authProvider.user!.userMetadata?['full_name']!.toString().trim()??"",style: TextStyle(fontSize: 25,fontWeight: .bold)),
+                  AuthButton(onPressed:(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfile(),
+                      ),
+                    );
+                  }, text:"Edit profile info", color: Color(0xffEBDEC7))
                 ],
               ),
             ),
@@ -57,30 +96,40 @@ class AdminProfile extends StatelessWidget {
                     child: Icon(Icons.eighteen_up_rating_outlined,color: Color(0xff715E00),),
 
                   ),
-                  Column(
-                    spacing: 5,
-                    crossAxisAlignment: .start,
-                    children: [
-                      Text("Approved Cairo 3-Day Luxury Itinerary template",style: TextStyle(fontSize: 20,fontWeight: .bold)),
-                      Row(
-                        spacing: 7,
-                        children: [
-                          Text("2 days ago"),
-                          Icon(Icons.circle,size: 8,),
-                          Text("Media catalog")
-                        ],
-                      )
-                    ],
+
+                  Expanded(
+                    child: Column(
+                      spacing: 5,
+                      crossAxisAlignment: .start,
+                      children: [
+                        Text("Approved Cairo 3-Day Luxury Itinerary template",style: TextStyle(fontSize: 20,fontWeight: .bold)),
+                        Row(
+                          spacing: 7,
+                          children: [
+                            Text("2 days ago"),
+                            Icon(Icons.circle,size: 8,),
+                            Text("Media catalog")
+                          ],
+                        )
+                      ],
+                    ),
                   )
                    ],
               ),
             ),
 
-            AuthButton(onPressed:(){}, text: "Log Out of Admin Console", color:Color(0xffFFDAD6),icon: Icons.logout,textColor: Color(0xff93000A),)
+            AuthButton(onPressed:(){
+              handleLogout();
+
+            }, text: "Log Out of Admin Console", color:Color(0xffFFDAD6),icon: Icons.logout,textColor: Color(0xff93000A),)
 
           ],
         ),
       ),
     );
+
+
+
+
   }
 }

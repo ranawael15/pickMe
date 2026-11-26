@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
 import 'package:pick_me/core/utils/auth_dialog.dart';
@@ -74,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         Navigator.pushNamedAndRemoveUntil(
           context,
-          isAdmin ? '/admin' : '/home',
+          isAdmin ? '/admin_profile' : '/home',
               (route) => false,
           arguments: displayName,
         );

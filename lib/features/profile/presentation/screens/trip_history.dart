@@ -86,7 +86,10 @@ class _TripHistoryState extends State<TripHistory> {
             Container(
               height: 550,
               child:TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+
                 children: <Widget>[
+
                   SingleChildScrollView(
                     child: Column(
                       spacing: 20,
@@ -135,6 +138,139 @@ class _TripHistoryState extends State<TripHistory> {
 
 
                         ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: Colors.white,
+
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset("assets/images/pickme_small.png"),
+                              Column(
+                                spacing: 5,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    spacing:100,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: Color(0x66E9DBA0),
+                                            borderRadius: BorderRadius.circular(15)
+                                        ),
+                                        child: Row(
+                                          spacing: 5,
+                                          children: [
+                                            Icon(Icons.circle,size: 10,color: Color(0xff685E2F)),
+                                            Text("Completed",style: TextStyle(color: Color(0xff685E2F)),),
+                                          ],
+                                        ),
+                                      ),
+                                      Text("2,400 EGP",style: TextStyle(fontSize: 20,fontWeight: .bold),)
+
+                                    ],
+                                  ),
+                                  Text("Alexandria Seaside & Citadel",style: TextStyle(fontSize: 20,fontWeight: .bold)),
+                                  Text("Oct 2")
+                                ],
+                              )
+                            ],
+                          ),
+
+
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: Colors.white,
+
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset("assets/images/pickme_small.png"),
+                              Column(
+                                spacing: 5,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    spacing:100,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: Color(0x66E9DBA0),
+                                            borderRadius: BorderRadius.circular(15)
+                                        ),
+                                        child: Row(
+                                          spacing: 5,
+                                          children: [
+                                            Icon(Icons.circle,size: 10,color: Color(0xff685E2F)),
+                                            Text("Completed",style: TextStyle(color: Color(0xff685E2F)),),
+                                          ],
+                                        ),
+                                      ),
+                                      Text("2,400 EGP",style: TextStyle(fontSize: 20,fontWeight: .bold),)
+
+                                    ],
+                                  ),
+                                  Text("Alexandria Seaside & Citadel",style: TextStyle(fontSize: 20,fontWeight: .bold)),
+                                  Text("Oct 2")
+                                ],
+                              )
+                            ],
+                          ),
+
+
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: Colors.white,
+
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset("assets/images/pickme_small.png"),
+                              Column(
+                                spacing: 5,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    spacing:100,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: Color(0x66E9DBA0),
+                                            borderRadius: BorderRadius.circular(15)
+                                        ),
+                                        child: Row(
+                                          spacing: 5,
+                                          children: [
+                                            Icon(Icons.circle,size: 10,color: Color(0xff685E2F)),
+                                            Text("Completed",style: TextStyle(color: Color(0xff685E2F)),),
+                                          ],
+                                        ),
+                                      ),
+                                      Text("2,400 EGP",style: TextStyle(fontSize: 20,fontWeight: .bold),)
+
+                                    ],
+                                  ),
+                                  Text("Alexandria Seaside & Citadel",style: TextStyle(fontSize: 20,fontWeight: .bold)),
+                                  Text("Oct 2")
+                                ],
+                              )
+                            ],
+                          ),
+
+
+                        ),
+
                         Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(

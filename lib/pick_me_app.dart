@@ -71,6 +71,9 @@ class PickMeApp extends StatelessWidget {
               },
               "/profile":(context) =>
               const ProfileScreen(),
+              "/admin_profile":(context) =>
+              const AdminProfile(),
+
               "/edit_profile":(context) =>
                EditProfile(),
               "/trip_history":(context) =>
