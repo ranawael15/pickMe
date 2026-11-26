@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:pick_me/features/trip_planning/data/models/generated_plan.dart';
 import '../../../home/trip_request/logic/cubit/trip_request_cubit.dart';
 import '../widgets/budget_confirmed_card.dart';
@@ -8,15 +10,140 @@ import '../widgets/place_detail_card.dart';
 import '../widgets/trip_primary_button.dart';
 import '../widgets/trip_success_dialog.dart';
 import '../widgets/trip_theme_constants.dart';
+import 'mock_payment_screen.dart';
 
-class TripDetailsScreen extends StatelessWidget {
+class TripDetailsScreen extends StatefulWidget {
   final GeneratedPlan plan;
 
   const TripDetailsScreen({super.key, required this.plan});
 
   @override
+  State<TripDetailsScreen> createState() => _TripDetailsScreenState();
+}
+
+class _TripDetailsScreenState extends State<TripDetailsScreen> {
+  bool _isSaving = false;
+
+  Future<void> _confirmTrip() async {
+    if (_isSaving) return;
+
+    if (widget.plan.places.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No places found in this plan.')),
+      );
+      return;
+    }
+
+    setState(() {
+      _isSaving = true;
+    });
+
+    try {
+      final supabase = Supabase.instance.client;
+      final user = supabase.auth.currentUser;
+
+      if (user == null) {
+        throw Exception('Please login first.');
+      }
+
+      // Save trip
+      final trip = await supabase
+          .from('trips')
+          .insert({
+        'user_id': user.id,
+        'destination_id': widget.plan.places.first.destinationId,
+        'budget': widget.plan.budget,
+      })
+          .select('id')
+          .single();
+
+      final tripId = trip['id'];
+
+      // Save trip places
+      final tripPlaces = widget.plan.places.map((place) {
+        return {
+          'trip_id': tripId,
+          'place_id': place.id,
+          'place_name': place.name,
+          'estimated_cost': place.estimatedCost,
+          'image_url': place.imageUrl,
+        };
+      }).toList();
+
+      await supabase.from('trip_places').insert(tripPlaces);
+
+      if (!mounted) return;
+
+      final destination = context
+          .read<TripRequestCubit>()
+          .state
+          .request
+          .destination;
+
+      await TripSuccessDialog.show(
+        context,
+        destination: destination,
+
+        // Cancel trip
+        onCancel: () async {
+          try {
+            await supabase
+                .from('trips')
+                .update({'status': 'Cancelled'})
+                .eq('id', tripId);
+
+            if (!mounted) return;
+
+            Navigator.pop(context); // Close dialog
+            Navigator.pop(context); // Back to Plans
+          } catch (e) {
+            if (!mounted) return;
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Failed to cancel trip: $e')),
+            );
+          }
+        },
+
+        // Go to Book Now
+        onBookNow: () {
+          Navigator.pop(context); // Close success dialog
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MockPaymentScreen(
+                destination: destination,
+                amount: widget.plan.budget.toDouble(),
+              ),
+            ),
+          );
+        },
+
+        // Back to Home
+        onBackToHome: () {
+          Navigator.pop(context);
+          Navigator.popUntil(context, (route) => route.isFirst);
+        },
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to save trip: $e')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+        });
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final imageUrls = plan.places
+    final imageUrls = widget.plan.places
         .map((place) => place.imageUrl)
         .whereType<String>()
         .where((url) => url.trim().isNotEmpty)
@@ -77,7 +204,7 @@ class TripDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      plan.name,
+                      widget.plan.name,
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w800,
@@ -93,7 +220,8 @@ class TripDetailsScreen extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         physics: const BouncingScrollPhysics(),
                         itemCount: imageUrls.length,
-                        separatorBuilder: (_, __) => const SizedBox(width: 10),
+                        separatorBuilder: (_, __) =>
+                        const SizedBox(width: 10),
                         itemBuilder: (context, index) {
                           return ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -119,44 +247,27 @@ class TripDetailsScreen extends StatelessWidget {
                     const SizedBox(height: 16),
 
                     // Budget Confirmed Box
-                    BudgetConfirmedCard(plan: plan),
+                    BudgetConfirmedCard(plan: widget.plan),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
 
               // Places Details Cards
-              ...plan.places.map((place) => PlaceDetailCard(place: place)),
+              ...widget.plan.places.map(
+                    (place) => PlaceDetailCard(place: place),
+              ),
               const SizedBox(height: 10),
 
               // Cost Summary Card
-              CostSummaryCard(plan: plan),
+              CostSummaryCard(plan: widget.plan),
               const SizedBox(height: 24),
 
               // Confirm Button
               TripPrimaryButton(
-                text: 'Confirm This Plan',
+                text: _isSaving ? 'Saving...' : 'Confirm This Plan',
                 icon: Icons.check_circle_outline,
-                onPressed: () {
-                  final destination = context
-                      .read<TripRequestCubit>()
-                      .state
-                      .request
-                      .destination;
-
-                  TripSuccessDialog.show(
-                    context,
-                    destination: destination,
-                    onViewMyTrips: () {
-                      Navigator.pop(context);
-                      // Navigate to My Trips screen if needed
-                    },
-                    onBackToHome: () {
-                      Navigator.pop(context);
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                    },
-                  );
-                },
+                onPressed: _confirmTrip,
               ),
               const SizedBox(height: 20),
             ],
