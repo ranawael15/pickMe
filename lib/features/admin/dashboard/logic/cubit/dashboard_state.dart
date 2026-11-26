@@ -1,6 +1,16 @@
-part of 'dashboard_cubit.dart';
 
-@immutable
-sealed class DashboardState {}
+class DashboardState {
+  final int selectedIndex;
 
-final class DashboardInitial extends DashboardState {}
+  const DashboardState({
+    this.selectedIndex = 0,
+  });
+
+  DashboardState copyWith({
+    int? selectedIndex,
+  }) {
+    return DashboardState(
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+    );
+  }
+}
