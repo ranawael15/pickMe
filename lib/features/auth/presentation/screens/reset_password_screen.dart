@@ -35,12 +35,10 @@ class _ResetPasswordScreenState
     });
 
     try {
-      // Update new password
       await authService.updatePassword(
         passwordController.text,
       );
 
-      // Clear session and Remember Me
       await authService.logout();
 
       if (!mounted) return;

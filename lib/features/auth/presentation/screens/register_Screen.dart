@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
+import 'package:pick_me/core/utils/auth_dialog.dart';
 import 'package:pick_me/features/auth/presentation/screens/login_screen.dart';
 import 'package:pick_me/features/auth/presentation/widgets/input_field_widget.dart';
 
@@ -45,9 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created successfully!')),
-      );
+      showAuthDialog(context, message: 'Account created successfully!');
 
       Navigator.pushReplacement(
         context,
@@ -55,10 +54,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
     } catch (e) {
       if (!mounted) return;
+      showAuthDialog(context, message: e.toString());
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
     } finally {
       if (mounted) {
         setState(() {

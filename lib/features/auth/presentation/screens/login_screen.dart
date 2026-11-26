@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
+import 'package:pick_me/core/utils/auth_dialog.dart';
 import 'package:pick_me/features/auth/logic/provider/auth_provider.dart';
 
 import 'package:pick_me/features/auth/presentation/screens/register_Screen.dart';
@@ -80,9 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } catch (e) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(e.toString())));
+          showAuthDialog(context, message: e.toString());
       } finally {
         if (mounted) {
           setState(() {

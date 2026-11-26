@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
+import 'package:pick_me/core/utils/auth_dialog.dart';
 import 'package:pick_me/core/widgets/auth_button.dart';
 import 'package:pick_me/features/auth/presentation/widgets/input_field_widget.dart';
 
@@ -22,9 +23,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   Future<void> sendResetEmail() async {
     if (emailController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Please enter your email')));
+      showAuthDialog(context, message: 'Please enter your email');
       return;
     }
 
@@ -37,17 +36,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('If the account exists, a reset email will be sent.'),
-        ),
-      );
+     showAuthDialog(context, message: 'If the account exists, a reset email will be sent.');
     } catch (e) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+showAuthDialog(context, message: e.toString());
     } finally {
       if (mounted) {
         setState(() {

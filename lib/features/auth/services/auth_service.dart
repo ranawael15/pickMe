@@ -35,6 +35,99 @@ class AuthService {
     return user;
   }
 
+
+
+  Future<User> updateName(String name) async {
+    final response = await supabase.auth.updateUser(
+      UserAttributes(
+        data: {
+          'full_name': name.trim(),
+        },
+      ),
+    );
+
+    final updatedUser = response.user;
+
+    if (updatedUser == null) {
+      throw Exception('Failed to update name');
+    }
+
+    return updatedUser;
+  }
+
+  Future<User> updateEmail(String email) async {
+    final response = await supabase.auth.updateUser(
+      UserAttributes(
+        email: email.trim(),
+      ),
+    );
+
+    final updatedUser = response.user;
+
+    if (updatedUser == null) {
+      throw Exception('Failed to update email');
+    }
+
+    return updatedUser;
+  }
+
+  Future<User> updatePhone(String phone) async {
+    final response = await supabase.auth.updateUser(
+      UserAttributes(
+        phone: phone.trim(),
+      ),
+    );
+
+    final updatedUser = response.user;
+
+    if (updatedUser == null) {
+      throw Exception('Failed to update phone');
+    }
+
+    return updatedUser;
+  }
+
+
+  Future<User> updatePasswordProfile({
+    required String currentPassword,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    if (newPassword != confirmPassword) {
+      throw Exception('New passwords do not match');
+    }
+
+    final currentUser = supabase.auth.currentUser;
+
+    if (currentUser == null) {
+      throw Exception('User is not logged in');
+    }
+
+    final email = currentUser.email;
+
+    if (email == null || email.isEmpty) {
+      throw Exception('User email not found');
+    }
+
+    await supabase.auth.signInWithPassword(
+      email: email,
+      password: currentPassword,
+    );
+
+    final response = await supabase.auth.updateUser(
+      UserAttributes(
+        password: newPassword,
+      ),
+    );
+
+    final updatedUser = response.user;
+
+    if (updatedUser == null) {
+      throw Exception('Failed to update password');
+    }
+
+    return updatedUser;
+  }
   // Future<void> saveRememberMe(bool value) async {
   //   final prefs = await SharedPreferences.getInstance();
   //
