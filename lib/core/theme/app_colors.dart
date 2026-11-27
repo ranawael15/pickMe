@@ -7,6 +7,7 @@ class AppColors {
   static const Color primaryMedium = Color(0xFFFFAA6E);
   static const Color primarySoft = Color(0xFFFFD3A5);
   static const Color primaryPale = Color(0xFFFFFBDC);
+  static const Color backgroundColor = Color(0xFFFFF8F4);
 
   // Secondary - Peach
   static const Color peach = Color(0xFFE29F70);

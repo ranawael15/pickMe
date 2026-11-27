@@ -12,8 +12,10 @@ Future<void> showAuthDialog(
         content:  Text(message),
         actions: <Widget>[
           TextButton(
-            onPressed: () => Navigator.of(context).pop(), // Closes the dialog
-            child: const Text('Ok'),
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+            child: const Text('Ok',style: TextStyle(fontSize: 15,color: Color(0xffF6D96B)),),
           ),
         ],
       );

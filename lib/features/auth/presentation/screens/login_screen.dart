@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pick_me/core/theme/app_colors.dart';
 import 'package:pick_me/core/utils/auth_dialog.dart';
+import 'package:pick_me/features/auth/logic/provider/auth_provider.dart';
 
 import 'package:pick_me/features/auth/presentation/screens/register_Screen.dart';
 import 'package:pick_me/features/auth/presentation/widgets/input_field_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../services/auth_service.dart';
 
@@ -50,13 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       await _authService.saveRememberMe(checkBox);
 
-      final userName =
-      user.userMetadata?['full_name']?.toString().trim();
-
-      final displayName = (userName == null || userName.isEmpty)
-          ? (user.email ?? '').split('@').first
-          : userName;
-
       final isAdmin =
       (user.email ?? '').toLowerCase().contains('@admin');
 
@@ -92,8 +89,53 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider=Provider.of<AuthProvider>(context);
+
+    Future<void> _submitForm() async {
+      if (!_formKey.currentState!.validate()) {
+        return;
+      }
+
+      setState(() {
+        isLoading = true;
+      });
+
+      try {
+        final user = await _authService.login(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+
+        authProvider.changeUser(user);
+
+
+        await _authService.saveRememberMe(checkBox);
+
+        final isAdmin = (user.email ?? '').toLowerCase().contains('@admin');
+
+        if (!mounted) return;
+
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          isAdmin ? '/admin_profile' : '/home',
+              (route) => false,
+        );
+      } catch (e) {
+        if (!mounted) return;
+
+          showAuthDialog(context, message: e.toString());
+      } finally {
+        if (mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      }
+    }
+
+
     return Scaffold(
-      backgroundColor: AppColors.primaryPale,
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Form(
           key: _formKey,

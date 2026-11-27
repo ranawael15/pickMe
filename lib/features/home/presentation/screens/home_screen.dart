@@ -722,7 +722,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:pick_me/features/auth/logic/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../trip_request/logic/cubit/trip_request_cubit.dart';
 import '../feedback_floating_button.dart';
@@ -875,6 +876,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider=Provider.of<AuthProvider>(context);
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -885,25 +888,13 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Morning, $userName! 👋',
-                          style: const TextStyle(
-                            color: darkBrown,
-                            fontSize: 21,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-
-                      const CircleAvatar(
-                        backgroundColor: yellowColor,
-                        child: Icon(
-                          Icons.person,
-                          color: darkBrown,
-                        ),
+                   Expanded(
+                    child: Text(
+                      'Morning, ${authProvider.user!.userMetadata?['full_name']?.toString().trim()}! 👋',
+                      style: TextStyle(
+                        color: darkBrown,
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
                       ),
 
                       const SizedBox(width: 8),
@@ -950,6 +941,17 @@ class HomeScreen extends StatelessWidget {
                       color: secondaryBrown,
                       fontSize: 15,
                     ),
+                  CircleAvatar(
+                    backgroundColor: yellowColor,
+                    child: IconButton(
+                      icon: const Icon(Icons.person, color: darkBrown),
+                      onPressed: (){
+                        Navigator.pushNamed(
+                          context,
+                          "/profile",
+                        );
+
+                      },),
                   ),
 
                   const SizedBox(height: 22),
