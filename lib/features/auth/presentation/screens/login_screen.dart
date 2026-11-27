@@ -64,12 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
         await _authService.saveRememberMe(checkBox);
 
-        final userName = user.userMetadata?['full_name']?.toString().trim();
-
-        final displayName = (userName == null || userName.isEmpty)
-            ? (user.email ?? '').split('@').first
-            : userName;
-
         final isAdmin = (user.email ?? '').toLowerCase().contains('@admin');
 
         if (!mounted) return;
@@ -78,7 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
           context,
           isAdmin ? '/admin_profile' : '/home',
               (route) => false,
-          arguments: displayName,
         );
       } catch (e) {
         if (!mounted) return;

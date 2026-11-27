@@ -164,37 +164,6 @@ class AuthService {
     }
   }
 
-  // Future<bool> checkRememberMe() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //
-  //   final rememberMe = prefs.getBool('remember_me') ?? false;
-  //
-  //   if (!rememberMe) {
-  //     await supabase.auth.signOut();
-  //     return false;
-  //   }
-  //
-  //   final expiryString = prefs.getString('session_expiry');
-  //
-  //   if (expiryString == null) {
-  //     await supabase.auth.signOut();
-  //     return false;
-  //   }
-  //
-  //   try {
-  //     final expiry = DateTime.parse(expiryString);
-  //
-  //     if (!DateTime.now().isBefore(expiry)) {
-  //       await supabase.auth.signOut();
-  //       return false;
-  //     }
-  //   } catch (_) {
-  //     await supabase.auth.signOut();
-  //     return false;
-  //   }
-  //
-  //   return supabase.auth.currentSession != null;
-  // }
 
 
   Future<bool> checkRememberMe() async {
