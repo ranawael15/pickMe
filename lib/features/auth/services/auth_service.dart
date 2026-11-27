@@ -46,6 +46,8 @@ class AuthService {
       ),
     );
 
+
+
     final updatedUser = response.user;
 
     if (updatedUser == null) {

@@ -12,7 +12,7 @@ import 'package:pick_me/features/home/presentation/screens/home_screen.dart';
 import 'package:pick_me/features/home/trip_request/logic/cubit/trip_request_cubit.dart';
 import 'package:pick_me/features/profile/presentation/screens/edit_profile.dart';
 import 'package:pick_me/features/profile/presentation/screens/profile_screen.dart';
-import 'package:pick_me/features/profile/presentation/screens/trip_history.dart';
+import 'package:pick_me/features/trip_history/presentation/screens/trip_history_screen.dart';
 import 'package:pick_me/features/trip_planning/data/repos/place_repo.dart';
 import 'package:pick_me/features/trip_planning/logic/cubit/trip_planning_cubit.dart';
 import 'package:pick_me/features/trip_planning/logic/planner_service.dart';
