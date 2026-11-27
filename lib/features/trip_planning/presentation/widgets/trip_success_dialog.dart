@@ -4,28 +4,32 @@ import 'trip_theme_constants.dart';
 
 class TripSuccessDialog extends StatelessWidget {
   final String destination;
-  final VoidCallback onViewMyTrips;
+  final VoidCallback onCancel;
+  final VoidCallback onBookNow;
   final VoidCallback onBackToHome;
 
   const TripSuccessDialog({
     super.key,
     required this.destination,
-    required this.onViewMyTrips,
+    required this.onCancel,
+    required this.onBookNow,
     required this.onBackToHome,
   });
 
   static Future<void> show(
-    BuildContext context, {
-    required String destination,
-    required VoidCallback onViewMyTrips,
-    required VoidCallback onBackToHome,
-  }) {
+      BuildContext context, {
+        required String destination,
+        required VoidCallback onCancel,
+        required VoidCallback onBookNow,
+        required VoidCallback onBackToHome,
+      }) {
     return showDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       builder: (context) => TripSuccessDialog(
         destination: destination,
-        onViewMyTrips: onViewMyTrips,
+        onCancel: onCancel,
+        onBookNow: onBookNow,
         onBackToHome: onBackToHome,
       ),
     );
@@ -34,23 +38,44 @@ class TripSuccessDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(32),
+      ),
       elevation: 0,
       backgroundColor: Colors.white,
       insetPadding: const EdgeInsets.symmetric(horizontal: 24),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 24,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Celebration Check icon
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: onCancel,
+                child: const Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: TripColors.textMuted,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+
             Container(
               width: 84,
               height: 84,
               decoration: BoxDecoration(
                 color: const Color(0xFFFBE7A1),
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 4),
+                border: Border.all(
+                  color: Colors.white,
+                  width: 4,
+                ),
               ),
               child: const Center(
                 child: Icon(
@@ -60,7 +85,9 @@ class TripSuccessDialog extends StatelessWidget {
                 ),
               ),
             ),
+
             const SizedBox(height: 20),
+
             Text(
               "Yalla, You're Going to\n$destination! 🇪🇬",
               textAlign: TextAlign.center,
@@ -71,7 +98,9 @@ class TripSuccessDialog extends StatelessWidget {
                 height: 1.25,
               ),
             ),
+
             const SizedBox(height: 20),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -90,7 +119,7 @@ class TripSuccessDialog extends StatelessWidget {
                 const SizedBox(width: 10),
                 const Flexible(
                   child: Text(
-                    'Saved directly to My Trips for\noffline access',
+                    'Your trip has been saved successfully!',
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -100,13 +129,17 @@ class TripSuccessDialog extends StatelessWidget {
                 ),
               ],
             ),
+
             const SizedBox(height: 28),
+
             TripPrimaryButton(
-              text: 'View in My Trips',
+              text: 'Go to Book Now',
               icon: Icons.arrow_forward,
-              onPressed: onViewMyTrips,
+              onPressed: onBookNow,
             ),
+
             const SizedBox(height: 12),
+
             TripPrimaryButton(
               text: 'Back to Home',
               icon: Icons.home_outlined,

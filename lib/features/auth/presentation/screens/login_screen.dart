@@ -30,8 +30,55 @@ class _LoginScreenState extends State<LoginScreen> {
   bool checkBox = false;
   bool isLoading = false;
 
+  Future<void> _submitForm() async {
+
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
 
 
+
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      final user = await _authService.login(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      await _authService.saveRememberMe(checkBox);
+
+      final isAdmin =
+      (user.email ?? '').toLowerCase().contains('@admin');
+
+      if (!mounted) return;
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        isAdmin ? '/admin' : '/home',
+            (route) => false,
+        arguments: displayName,
+      );
+
+    } catch (e) {
+      showAuthDialog(context, message: e.toString());
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+
+
+
+  }
   @override
   void dispose() {
     _emailController.dispose();
