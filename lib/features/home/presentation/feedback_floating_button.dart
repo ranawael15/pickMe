@@ -1,13 +1,9 @@
-
 import 'package:flutter/material.dart';
 
 class FeedbackFloatingButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const FeedbackFloatingButton({
-    super.key,
-    required this.onPressed,
-  });
+  const FeedbackFloatingButton({super.key, required this.onPressed});
 
   static const Color yellowColor = Color(0xFFF8D967);
   static const Color darkBrown = Color(0xFF302318);
@@ -24,11 +20,11 @@ class FeedbackFloatingButton extends StatelessWidget {
         child: const SizedBox(
           width: 58,
           height: 58,
-          child: Icon(
-            Icons.thumb_up_alt_outlined,
-            color: darkBrown,
-            size: 27,
-          ),
+          child: const Icon(
+          Icons.thumbs_up_down,
+          color: darkBrown,
+          size: 27,
+        ),
         ),
       ),
     );

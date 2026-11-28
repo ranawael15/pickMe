@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,18 +6,13 @@ import '../../logic/cubit/destinations_cubit.dart';
 class DestinationFormScreen extends StatefulWidget {
   final Destination? destination;
 
-  const DestinationFormScreen({
-    super.key,
-    this.destination,
-  });
+  const DestinationFormScreen({super.key, this.destination});
 
   @override
-  State<DestinationFormScreen> createState() =>
-      _DestinationFormScreenState();
+  State<DestinationFormScreen> createState() => _DestinationFormScreenState();
 }
 
-class _DestinationFormScreenState
-    extends State<DestinationFormScreen> {
+class _DestinationFormScreenState extends State<DestinationFormScreen> {
   static const Color background = Color(0xFFFFF8F4);
   static const Color primary = Color(0xFFF8DB69);
   static const Color peach = Color(0xFFFFEFE3);
@@ -60,9 +54,7 @@ class _DestinationFormScreenState
 
     final destination = widget.destination;
 
-    nameController = TextEditingController(
-      text: destination?.name ?? '',
-    );
+    nameController = TextEditingController(text: destination?.name ?? '');
 
     descriptionController = TextEditingController(
       text: destination?.description ?? '',
@@ -71,9 +63,7 @@ class _DestinationFormScreenState
     selectedImage = destination?.image ?? selectedImage;
     selectedRegion = destination?.region ?? selectedRegion;
 
-    selectedCategories = List.from(
-      destination?.categories ?? [],
-    );
+    selectedCategories = List.from(destination?.categories ?? []);
   }
 
   @override
@@ -111,16 +101,10 @@ class _DestinationFormScreenState
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                Text(
-                  'Cover Showcase Photo *',
-                  style: TextStyle(fontSize: 13),
-                ),
+                Text('Cover Showcase Photo *', style: TextStyle(fontSize: 13)),
                 Text(
                   'Recommended 16:9',
-                  style: TextStyle(
-                    color: Color(0xFF806600),
-                    fontSize: 11,
-                  ),
+                  style: TextStyle(color: Color(0xFF806600), fontSize: 11),
                 ),
               ],
             ),
@@ -144,9 +128,7 @@ class _DestinationFormScreenState
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) => const SizedBox(),
                     ),
-                    Container(
-                      color: Colors.black.withOpacity(.27),
-                    ),
+                    Container(color: Colors.black.withOpacity(.27)),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -170,10 +152,7 @@ class _DestinationFormScreenState
                         const SizedBox(height: 5),
                         const Text(
                           'Choose an available local image',
-                          style: TextStyle(
-                            color: muted,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: muted, fontSize: 12),
                         ),
                       ],
                     ),
@@ -219,19 +198,17 @@ class _DestinationFormScreenState
             DropdownButtonFormField<String>(
               value: selectedRegion,
               decoration: _inputDecoration('Select region'),
-              items: const [
-                'Greater Cairo',
-                'North Coast',
-                'South Sinai',
-                'Upper Egypt',
-                'Red Sea',
-                'Other',
-              ].map((region) {
-                return DropdownMenuItem(
-                  value: region,
-                  child: Text(region),
-                );
-              }).toList(),
+              items:
+                  const [
+                    'Greater Cairo',
+                    'North Coast',
+                    'South Sinai',
+                    'Upper Egypt',
+                    'Red Sea',
+                    'Other',
+                  ].map((region) {
+                    return DropdownMenuItem(value: region, child: Text(region));
+                  }).toList(),
               onChanged: (value) {
                 if (value != null) {
                   setState(() => selectedRegion = value);
@@ -247,10 +224,7 @@ class _DestinationFormScreenState
                 _label('Description *'),
                 Text(
                   '${descriptionController.text.length}/500',
-                  style: const TextStyle(
-                    color: muted,
-                    fontSize: 11,
-                  ),
+                  style: const TextStyle(color: muted, fontSize: 11),
                 ),
               ],
             ),
@@ -269,13 +243,14 @@ class _DestinationFormScreenState
                 }
                 return null;
               },
-              decoration: _inputDecoration(
-                'Describe highlights, historic temples, Nile cruises...',
-              ).copyWith(
-                counterText: '',
-                alignLabelWithHint: true,
-                contentPadding: const EdgeInsets.all(17),
-              ),
+              decoration:
+                  _inputDecoration(
+                    'Describe highlights, historic temples, Nile cruises...',
+                  ).copyWith(
+                    counterText: '',
+                    alignLabelWithHint: true,
+                    contentPadding: const EdgeInsets.all(17),
+                  ),
             ),
 
             const SizedBox(height: 20),
@@ -297,9 +272,7 @@ class _DestinationFormScreenState
                       backgroundColor: const Color(0xFFF1E1C5),
                       child: Text(
                         '${selectedCategories.length}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                     title: const Text(
@@ -354,9 +327,7 @@ class _DestinationFormScreenState
                 icon: const Icon(Icons.bookmark_add_outlined),
                 label: Text(
                   isEditing ? 'Save Changes' : 'Save Destination',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 style: ElevatedButton.styleFrom(
                   elevation: 3,
@@ -415,19 +386,11 @@ class _DestinationFormScreenState
     );
   }
 
-  InputDecoration _inputDecoration(
-      String hint, [
-        IconData? icon,
-      ]) {
+  InputDecoration _inputDecoration(String hint, [IconData? icon]) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: const TextStyle(
-        fontSize: 13,
-        color: Color(0xFF91816C),
-      ),
-      prefixIcon: icon == null
-          ? null
-          : Icon(icon, color: muted, size: 20),
+      hintStyle: const TextStyle(fontSize: 13, color: Color(0xFF91816C)),
+      prefixIcon: icon == null ? null : Icon(icon, color: muted, size: 20),
       filled: true,
       fillColor: Colors.white,
       border: OutlineInputBorder(
@@ -440,15 +403,9 @@ class _DestinationFormScreenState
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(
-          color: primary,
-          width: 1.5,
-        ),
+        borderSide: const BorderSide(color: primary, width: 1.5),
       ),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 17,
-        vertical: 17,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 17, vertical: 17),
     );
   }
 
@@ -470,10 +427,7 @@ class _DestinationFormScreenState
             children: [
               const Text(
                 'Choose Destination Image',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 18),
               Row(

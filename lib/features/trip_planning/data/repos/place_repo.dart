@@ -1,3 +1,4 @@
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/place_model.dart';
@@ -15,7 +16,12 @@ class PlaceRepository {
 
     final response = await supabase
         .from('places')
-        .select()
+        .select('''
+          *,
+          destination_categories!places_destination_category_fkey(
+            categories(name)
+          )
+        ''')
         .eq('destination_id', request.destinationId)
         .inFilter('category_id', request.selectedCategoryIds);
 

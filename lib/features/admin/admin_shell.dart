@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,8 +18,10 @@ class AdminShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardCubit, dynamic>(
       builder: (context, state) {
-        final selectedIndex =
-            context.watch<DashboardCubit>().state.selectedIndex;
+        final selectedIndex = context
+            .watch<DashboardCubit>()
+            .state
+            .selectedIndex;
 
         return Scaffold(
           backgroundColor: background,
@@ -35,8 +36,7 @@ class AdminShell extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) =>
-                        const DestinationFormScreen(),
+                        builder: (_) => const DestinationFormScreen(),
                       ),
                     );
                   }
@@ -86,12 +86,12 @@ class AdminShell extends StatelessWidget {
   }
 
   Widget _navItem(
-      BuildContext context,
-      int index,
-      IconData icon,
-      String title,
-      int selectedIndex,
-      ) {
+    BuildContext context,
+    int index,
+    IconData icon,
+    String title,
+    int selectedIndex,
+  ) {
     final selected = selectedIndex == index;
 
     return Expanded(
@@ -109,19 +109,9 @@ class AdminShell extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                color: dark,
-                size: 21,
-              ),
+              Icon(icon, color: dark, size: 21),
               const SizedBox(height: 3),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: dark,
-                  fontSize: 11,
-                ),
-              ),
+              Text(title, style: const TextStyle(color: dark, fontSize: 11)),
             ],
           ),
         ),

@@ -1,15 +1,6 @@
-
-
 import '../data/models/feedback_model.dart';
 
-enum FeedbackStatus {
-  initial,
-  loading,
-  loaded,
-  submitting,
-  success,
-  error,
-}
+enum FeedbackStatus { initial, loading, loaded, submitting, success, error }
 
 class FeedbackState {
   final FeedbackStatus status;
@@ -39,8 +30,7 @@ class FeedbackState {
       feedbacks: feedbacks ?? this.feedbacks,
       selectedRating: selectedRating ?? this.selectedRating,
       comment: comment ?? this.comment,
-      errorMessage:
-      clearError ? null : errorMessage ?? this.errorMessage,
+      errorMessage: clearError ? null : errorMessage ?? this.errorMessage,
     );
   }
 }

@@ -1,4 +1,3 @@
-
 import 'destinations_cubit.dart';
 
 class DestinationsState {
@@ -17,11 +16,9 @@ class DestinationsState {
 
     return destinations.where((destination) {
       return destination.name.toLowerCase().contains(
-        searchQuery.toLowerCase(),
-      ) ||
-          destination.region.toLowerCase().contains(
             searchQuery.toLowerCase(),
-          );
+          ) ||
+          destination.region.toLowerCase().contains(searchQuery.toLowerCase());
     }).toList();
   }
 

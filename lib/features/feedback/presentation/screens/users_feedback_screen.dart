@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,10 +14,7 @@ import '../widgets/feedback_footer.dart';
 class UsersFeedbackScreen extends StatelessWidget {
   final VoidCallback onLeaveFeedback;
 
-  const UsersFeedbackScreen({
-    super.key,
-    required this.onLeaveFeedback,
-  });
+  const UsersFeedbackScreen({super.key, required this.onLeaveFeedback});
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +24,7 @@ class UsersFeedbackScreen extends StatelessWidget {
           supabase: Supabase.instance.client,
         ),
       )..loadFeedbacks(),
-      child: UsersFeedbackView(
-        onLeaveFeedback: onLeaveFeedback,
-      ),
+      child: UsersFeedbackView(onLeaveFeedback: onLeaveFeedback),
     );
   }
 }
@@ -38,10 +32,7 @@ class UsersFeedbackScreen extends StatelessWidget {
 class UsersFeedbackView extends StatelessWidget {
   final VoidCallback onLeaveFeedback;
 
-  const UsersFeedbackView({
-    super.key,
-    required this.onLeaveFeedback,
-  });
+  const UsersFeedbackView({super.key, required this.onLeaveFeedback});
 
   static const Color backgroundColor = Color(0xFFFFF8F4);
 
@@ -88,9 +79,7 @@ class UsersFeedbackView extends StatelessWidget {
       body: BlocBuilder<FeedbackCubit, FeedbackState>(
         builder: (context, state) {
           if (state.status == FeedbackStatus.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (state.status == FeedbackStatus.error) {
@@ -128,10 +117,10 @@ class UsersFeedbackView extends StatelessWidget {
           final averageRating = feedbacks.isEmpty
               ? 0.0
               : feedbacks.fold<int>(
-            0,
-                (sum, feedback) => sum + feedback.rating,
-          ) /
-              feedbacks.length;
+                      0,
+                      (sum, feedback) => sum + feedback.rating,
+                    ) /
+                    feedbacks.length;
 
           return SingleChildScrollView(
             padding: const EdgeInsets.all(20),
@@ -177,7 +166,7 @@ class UsersFeedbackView extends StatelessWidget {
                   )
                 else
                   ...feedbacks.map(
-                        (feedback) => CommunityReviewCard(
+                    (feedback) => CommunityReviewCard(
                       userName: feedback.userName,
                       timeAgo: getTimeAgo(feedback.createdAt),
                       rating: feedback.rating,
@@ -187,9 +176,7 @@ class UsersFeedbackView extends StatelessWidget {
 
                 const SizedBox(height: 12),
 
-                LeaveFeedbackCard(
-                  onPressed: onLeaveFeedback,
-                ),
+                LeaveFeedbackCard(onPressed: onLeaveFeedback),
 
                 const SizedBox(height: 12),
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class FeedbackSubmitButton extends StatelessWidget {
@@ -32,20 +31,17 @@ class FeedbackSubmitButton extends StatelessWidget {
         ),
         child: isLoading
             ? const SizedBox(
-          width: 22,
-          height: 22,
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-            color: darkBrown,
-          ),
-        )
+                width: 22,
+                height: 22,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: darkBrown,
+                ),
+              )
             : const Text(
-          'Submit Feedback',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+                'Submit Feedback',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
       ),
     );
   }

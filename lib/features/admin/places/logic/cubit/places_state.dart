@@ -1,12 +1,9 @@
-
 import 'places_cubit.dart';
 
 class PlacesState {
   final List<Place> places;
 
-  const PlacesState({
-    this.places = const [],
-  });
+  const PlacesState({this.places = const []});
 
   List<Place> placesForDestination(String destinationId) {
     return places
@@ -14,11 +11,7 @@ class PlacesState {
         .toList();
   }
 
-  PlacesState copyWith({
-    List<Place>? places,
-  }) {
-    return PlacesState(
-      places: places ?? this.places,
-    );
+  PlacesState copyWith({List<Place>? places}) {
+    return PlacesState(places: places ?? this.places);
   }
 }

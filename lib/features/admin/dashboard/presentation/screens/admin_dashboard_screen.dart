@@ -46,10 +46,7 @@ class AdminDashboardScreen extends StatelessWidget {
                       SizedBox(height: 5),
                       Text(
                         'PickMe Operations & Content Management',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: muted,
-                        ),
+                        style: TextStyle(fontSize: 13, color: muted),
                       ),
                     ],
                   ),
@@ -102,7 +99,7 @@ class AdminDashboardScreen extends StatelessWidget {
               'Organize destination experiences, historical tours, beach & nightlife',
               icon: Icons.category_outlined,
               iconColor: const Color(0xFFEDE0C8),
-              onTap: () {},
+              onTap: () => onNavigate(3),
             ),
 
             const SizedBox(height: 15),
@@ -114,7 +111,7 @@ class AdminDashboardScreen extends StatelessWidget {
               'View registered travelers, profile details, and account status',
               icon: Icons.groups_outlined,
               iconColor: const Color(0xFFE9DA9D),
-              onTap: () {},
+              onTap: () => onNavigate(4),
             ),
 
             const SizedBox(height: 30),
@@ -132,10 +129,7 @@ class AdminDashboardScreen extends StatelessWidget {
                 ),
                 Text(
                   'Instant Creation',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: muted,
-                  ),
+                  style: TextStyle(fontSize: 11, color: muted),
                 ),
               ],
             ),
@@ -158,30 +152,12 @@ class AdminDashboardScreen extends StatelessWidget {
                     '+ New Category',
                     Icons.bookmark_add_outlined,
                     const Color(0xFFEDE0C8),
-                        () {},
+                        () => onNavigate(5),
                   ),
                 ),
               ],
             ),
 
-            const SizedBox(height: 30),
-
-            Center(
-              child: TextButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.visibility_outlined),
-                label: const Text('Switch to Client View'),
-                style: TextButton.styleFrom(
-                  backgroundColor: peach,
-                  foregroundColor: dark,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 22,
-                    vertical: 14,
-                  ),
-                  shape: const StadiumBorder(),
-                ),
-              ),
-            ),
           ],
         ),
       ),

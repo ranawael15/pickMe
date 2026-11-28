@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class MockPaymentScreen extends StatefulWidget {
@@ -47,11 +46,7 @@ class _MockPaymentScreenState extends State<MockPaymentScreen> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                Icons.check_circle,
-                color: Colors.green,
-                size: 65,
-              ),
+              const Icon(Icons.check_circle, color: Colors.green, size: 65),
               const SizedBox(height: 16),
               const Text(
                 'Payment Successful!',
@@ -72,10 +67,7 @@ class _MockPaymentScreenState extends State<MockPaymentScreen> {
                   onPressed: () {
                     Navigator.pop(dialogContext);
 
-                    Navigator.popUntil(
-                      context,
-                          (route) => route.isFirst,
-                    );
+                    Navigator.popUntil(context, (route) => route.isFirst);
                   },
                   child: const Text('Done'),
                 ),
@@ -128,18 +120,13 @@ class _MockPaymentScreenState extends State<MockPaymentScreen> {
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: secondaryBrown,
-                    ),
+                    style: const TextStyle(fontSize: 12, color: secondaryBrown),
                   ),
                 ],
               ),
             ),
             Icon(
-              isSelected
-                  ? Icons.radio_button_checked
-                  : Icons.radio_button_off,
+              isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
               color: isSelected ? darkBrown : Colors.grey,
             ),
           ],
@@ -284,16 +271,14 @@ class _MockPaymentScreenState extends State<MockPaymentScreen> {
                     ),
                   ),
                   child: isProcessing
-                      ? const CircularProgressIndicator(
-                    color: darkBrown,
-                  )
+                      ? const CircularProgressIndicator(color: darkBrown)
                       : const Text(
-                    'Pay Now',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                          'Pay Now',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
 

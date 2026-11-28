@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CompletedJourneyCard extends StatelessWidget {
@@ -24,9 +23,7 @@ class CompletedJourneyCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: yellowColor.withOpacity(0.7),
-        ),
+        border: Border.all(color: yellowColor.withOpacity(0.7)),
       ),
       child: Row(
         children: [
@@ -66,18 +63,11 @@ class CompletedJourneyCard extends StatelessWidget {
                 const SizedBox(height: 7),
                 const Row(
                   children: [
-                    Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                      size: 16,
-                    ),
+                    Icon(Icons.check_circle, color: Colors.green, size: 16),
                     SizedBox(width: 5),
                     Text(
                       'Completed Journey',
-                      style: TextStyle(
-                        color: secondaryBrown,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: secondaryBrown, fontSize: 12),
                     ),
                   ],
                 ),

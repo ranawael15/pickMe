@@ -50,10 +50,10 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
       final trip = await supabase
           .from('trips')
           .insert({
-        'user_id': user.id,
-        'destination_id': widget.plan.places.first.destinationId,
-        'budget': widget.plan.budget,
-      })
+            'user_id': user.id,
+            'destination_id': widget.plan.places.first.destinationId,
+            'budget': widget.plan.budget,
+          })
           .select('id')
           .single();
 
@@ -120,18 +120,13 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
           );
         },
 
-        // Back to Home
-        onBackToHome: () {
-          Navigator.pop(context);
-          Navigator.popUntil(context, (route) => route.isFirst);
-        },
       );
     } catch (e) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to save trip: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to save trip: $e')));
     } finally {
       if (mounted) {
         setState(() {
@@ -220,8 +215,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                         scrollDirection: Axis.horizontal,
                         physics: const BouncingScrollPhysics(),
                         itemCount: imageUrls.length,
-                        separatorBuilder: (_, __) =>
-                        const SizedBox(width: 10),
+                        separatorBuilder: (_, __) => const SizedBox(width: 10),
                         itemBuilder: (context, index) {
                           return ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -255,7 +249,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
 
               // Places Details Cards
               ...widget.plan.places.map(
-                    (place) => PlaceDetailCard(place: place),
+                (place) => PlaceDetailCard(place: place),
               ),
               const SizedBox(height: 10),
 

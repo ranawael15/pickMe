@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'places_state.dart';
+
 class Place {
   final String id;
   final String destinationId;
@@ -80,7 +81,7 @@ class PlacesCubit extends Cubit<PlacesState> {
             destinationId: 'CAI-01',
             name: 'Giza Pyramids & Sphinx Complex',
             description:
-            'The iconic plateau featuring Khufu, Khafre, and Menkaure alongside the Great Sphinx. Insider tip: visit early morning.',
+                'The iconic plateau featuring Khufu, Khafre, and Menkaure alongside the Great Sphinx. Insider tip: visit early morning.',
             image: 'assets/images/cairo.png',
             category: 'Historical & Ancient',
             price: 540,
@@ -93,7 +94,7 @@ class PlacesCubit extends Cubit<PlacesState> {
             destinationId: 'CAI-01',
             name: 'The Grand Egyptian Museum (GEM)',
             description:
-            'State-of-the-art museum housing the complete Tutankhamun collection. Pre-booking is recommended.',
+                'State-of-the-art museum housing the complete Tutankhamun collection. Pre-booking is recommended.',
             image: 'assets/images/cairo.png',
             category: 'Museums & Culture',
             price: 1200,
@@ -106,7 +107,7 @@ class PlacesCubit extends Cubit<PlacesState> {
             destinationId: 'CAI-01',
             name: 'Khan el-Khalili & El-Fishawy',
             description:
-            'Historic 14th-century labyrinthine market filled with spices, brass lanterns, and jewelry.',
+                'Historic 14th-century labyrinthine market filled with spices, brass lanterns, and jewelry.',
             image: 'assets/images/cairo.png',
             category: 'Shopping & Cultural',
             price: 0,
@@ -120,7 +121,7 @@ class PlacesCubit extends Cubit<PlacesState> {
             destinationId: 'CAI-01',
             name: 'Al-Azhar Park & Hilltop Dining',
             description:
-            'A tranquil oasis offering panoramic city views of Cairo Citadel.',
+                'A tranquil oasis offering panoramic city views of Cairo Citadel.',
             image: 'assets/images/cairo.png',
             category: 'Scenic Views & Parks',
             price: 150,
@@ -133,7 +134,7 @@ class PlacesCubit extends Cubit<PlacesState> {
             destinationId: 'ALEX-01',
             name: 'Qaitbay Citadel',
             description:
-            'Historic seaside fortress overlooking the Mediterranean Sea.',
+                'Historic seaside fortress overlooking the Mediterranean Sea.',
             image: 'assets/images/alex.png',
             category: 'Historical & Ancient',
             price: 100,
@@ -145,7 +146,7 @@ class PlacesCubit extends Cubit<PlacesState> {
             destinationId: 'ALEX-01',
             name: 'Alexandria Corniche',
             description:
-            'Enjoy beautiful sea views along the Mediterranean coastline.',
+                'Enjoy beautiful sea views along the Mediterranean coastline.',
             image: 'assets/images/alex.png',
             category: 'Scenic Views & Parks',
             price: 0,
@@ -156,7 +157,7 @@ class PlacesCubit extends Cubit<PlacesState> {
             destinationId: 'SH-01',
             name: 'Naama Bay Beach',
             description:
-            'Enjoy the Red Sea, clear water, and beautiful beach activities.',
+                'Enjoy the Red Sea, clear water, and beautiful beach activities.',
             image: 'assets/images/sharm.png',
             category: 'Beaches',
             price: 250,
@@ -168,7 +169,7 @@ class PlacesCubit extends Cubit<PlacesState> {
             destinationId: 'SH-01',
             name: 'Ras Mohammed National Park',
             description:
-            'Explore amazing coral reefs and marine life in the Red Sea.',
+                'Explore amazing coral reefs and marine life in the Red Sea.',
             image: 'assets/images/sharm.png',
             category: 'Adventure',
             price: 300,
@@ -179,11 +180,7 @@ class PlacesCubit extends Cubit<PlacesState> {
   }
 
   void addPlace(Place place) {
-    emit(
-      state.copyWith(
-        places: [...state.places, place],
-      ),
-    );
+    emit(state.copyWith(places: [...state.places, place]));
   }
 
   void updatePlace(Place updatedPlace) {
@@ -197,18 +194,14 @@ class PlacesCubit extends Cubit<PlacesState> {
   void deletePlace(String id) {
     emit(
       state.copyWith(
-        places: state.places
-            .where((place) => place.id != id)
-            .toList(),
+        places: state.places.where((place) => place.id != id).toList(),
       ),
     );
   }
 
   Place? getPlace(String id) {
     try {
-      return state.places.firstWhere(
-            (place) => place.id == id,
-      );
+      return state.places.firstWhere((place) => place.id == id);
     } catch (_) {
       return null;
     }

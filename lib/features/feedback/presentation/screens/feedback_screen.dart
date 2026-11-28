@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -36,9 +35,7 @@ class FeedbackScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (_) => FeedbackCubit(
-        feedbackRepository: FeedbackRepository(
-          supabase: supabase,
-        ),
+        feedbackRepository: FeedbackRepository(supabase: supabase),
       ),
       child: FeedbackView(
         tripId: tripId,
@@ -105,11 +102,9 @@ class _FeedbackViewState extends State<FeedbackView> {
 
           if (state.status == FeedbackStatus.error &&
               state.errorMessage != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage!),
-              ),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
           }
         },
         builder: (context, state) {
@@ -182,9 +177,7 @@ class _FeedbackViewState extends State<FeedbackView> {
 
                 const SizedBox(height: 8),
 
-                CharacterCounter(
-                  currentLength: state.comment.length,
-                ),
+                CharacterCounter(currentLength: state.comment.length),
 
                 const SizedBox(height: 24),
 
@@ -195,17 +188,15 @@ class _FeedbackViewState extends State<FeedbackView> {
 
                     if (user == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Please log in first.'),
-                        ),
+                        const SnackBar(content: Text('Please log in first.')),
                       );
                       return;
                     }
 
                     final userName =
                         user.userMetadata?['full_name'] ??
-                            user.email?.split('@').first ??
-                            'Anonymous';
+                        user.email?.split('@').first ??
+                        'Anonymous';
 
                     cubit.submitFeedback(
                       tripId: widget.tripId,
