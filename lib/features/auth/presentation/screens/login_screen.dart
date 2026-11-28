@@ -63,7 +63,6 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
         isAdmin ? '/admin' : '/home',
             (route) => false,
-        arguments: displayName,
       );
 
     } catch (e) {
