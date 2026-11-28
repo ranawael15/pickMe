@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CommunityReviewsHeader extends StatelessWidget {
@@ -31,11 +30,7 @@ class CommunityReviewsHeader extends StatelessWidget {
         const SizedBox(height: 12),
         Row(
           children: [
-            const Icon(
-              Icons.star,
-              color: yellowColor,
-              size: 30,
-            ),
+            const Icon(Icons.star, color: yellowColor, size: 30),
             const SizedBox(width: 7),
             Text(
               averageRating.toStringAsFixed(1),
@@ -49,10 +44,7 @@ class CommunityReviewsHeader extends StatelessWidget {
             Expanded(
               child: Text(
                 'Based on $totalReviews reviews',
-                style: const TextStyle(
-                  color: secondaryBrown,
-                  fontSize: 13,
-                ),
+                style: const TextStyle(color: secondaryBrown, fontSize: 13),
               ),
             ),
           ],

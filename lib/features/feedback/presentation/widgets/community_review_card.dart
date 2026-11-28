@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CommunityReviewCard extends StatelessWidget {
@@ -28,9 +27,7 @@ class CommunityReviewCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: yellowColor.withOpacity(0.5),
-        ),
+        border: Border.all(color: yellowColor.withOpacity(0.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,10 +36,7 @@ class CommunityReviewCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundColor: yellowColor.withOpacity(0.4),
-                child: const Icon(
-                  Icons.person,
-                  color: darkBrown,
-                ),
+                child: const Icon(Icons.person, color: darkBrown),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -71,10 +65,8 @@ class CommunityReviewCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: List.generate(
                   5,
-                      (index) => Icon(
-                    index < rating
-                        ? Icons.star
-                        : Icons.star_border,
+                  (index) => Icon(
+                    index < rating ? Icons.star : Icons.star_border,
                     color: yellowColor,
                     size: 17,
                   ),

@@ -72,7 +72,7 @@ class PlaceDetailCard extends StatelessWidget {
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
-                  'Category: ${place.categoryId}',
+                  'Category: ${place.categoryName}',
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,

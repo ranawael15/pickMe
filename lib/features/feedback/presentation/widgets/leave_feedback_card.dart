@@ -1,13 +1,9 @@
-
 import 'package:flutter/material.dart';
 
 class LeaveFeedbackCard extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const LeaveFeedbackCard({
-    super.key,
-    required this.onPressed,
-  });
+  const LeaveFeedbackCard({super.key, required this.onPressed});
 
   static const Color yellowColor = Color(0xFFF8D967);
   static const Color darkBrown = Color(0xFF302318);
@@ -21,10 +17,7 @@ class LeaveFeedbackCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: yellowColor,
-          width: 1.2,
-        ),
+        border: Border.all(color: yellowColor, width: 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,10 +33,7 @@ class LeaveFeedbackCard extends StatelessWidget {
           const SizedBox(height: 7),
           const Text(
             'Share your experience and help other travelers.',
-            style: TextStyle(
-              color: secondaryBrown,
-              fontSize: 13,
-            ),
+            style: TextStyle(color: secondaryBrown, fontSize: 13),
           ),
           const SizedBox(height: 14),
           SizedBox(
@@ -61,10 +51,7 @@ class LeaveFeedbackCard extends StatelessWidget {
               ),
               child: const Text(
                 'Write a Review',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ),
           ),

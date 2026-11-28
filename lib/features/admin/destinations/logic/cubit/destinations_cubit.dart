@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'destinations_state.dart';
 
@@ -52,7 +51,7 @@ class DestinationsCubit extends Cubit<DestinationsState> {
             region: 'Greater Cairo',
             image: 'assets/images/cairo.png',
             description:
-            'The historic capital of Egypt featuring the Giza Plateau, Nile cruises, and Islamic Cairo.',
+                'The historic capital of Egypt featuring the Giza Plateau, Nile cruises, and Islamic Cairo.',
             categories: [
               'Historical & Ancient',
               'Museums & Culture',
@@ -67,7 +66,7 @@ class DestinationsCubit extends Cubit<DestinationsState> {
             region: 'North Coast',
             image: 'assets/images/alex.png',
             description:
-            'The pearl of the Mediterranean with historic citadels, coastal dining, and the ancient library.',
+                'The pearl of the Mediterranean with historic citadels, coastal dining, and the ancient library.',
             categories: [
               'Beaches',
               'Historical & Ancient',
@@ -81,12 +80,8 @@ class DestinationsCubit extends Cubit<DestinationsState> {
             region: 'South Sinai',
             image: 'assets/images/sharm.png',
             description:
-            'Red Sea luxury resort destination famed for world-class diving, beaches, and desert safaris.',
-            categories: [
-              'Beaches',
-              'Adventure',
-              'Water Activities',
-            ],
+                'Red Sea luxury resort destination famed for world-class diving, beaches, and desert safaris.',
+            categories: ['Beaches', 'Adventure', 'Water Activities'],
           ),
         ],
       ),
@@ -98,10 +93,7 @@ class DestinationsCubit extends Cubit<DestinationsState> {
   }
 
   void addDestination(Destination destination) {
-    final updated = [
-      ...state.destinations,
-      destination,
-    ];
+    final updated = [...state.destinations, destination];
 
     emit(state.copyWith(destinations: updated));
   }
@@ -127,7 +119,7 @@ class DestinationsCubit extends Cubit<DestinationsState> {
   Destination? getDestination(String id) {
     try {
       return state.destinations.firstWhere(
-            (destination) => destination.id == id,
+        (destination) => destination.id == id,
       );
     } catch (_) {
       return null;

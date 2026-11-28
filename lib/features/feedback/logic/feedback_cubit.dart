@@ -1,6 +1,4 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 import '../data/models/feedback_model.dart';
 import '../data/repos/feedback_repository.dart';
@@ -9,50 +7,29 @@ import 'feedback_state.dart';
 class FeedbackCubit extends Cubit<FeedbackState> {
   final FeedbackRepository feedbackRepository;
 
-  FeedbackCubit({
-    required this.feedbackRepository,
-  }) : super(const FeedbackState());
+  FeedbackCubit({required this.feedbackRepository})
+    : super(const FeedbackState());
 
   // Select rating stars.
   void selectRating(int rating) {
     if (rating < 1 || rating > 5) return;
 
-    emit(
-      state.copyWith(
-        selectedRating: rating,
-        clearError: true,
-      ),
-    );
+    emit(state.copyWith(selectedRating: rating, clearError: true));
   }
 
   // Update feedback comment.
   void updateComment(String comment) {
-    emit(
-      state.copyWith(
-        comment: comment,
-        clearError: true,
-      ),
-    );
+    emit(state.copyWith(comment: comment, clearError: true));
   }
 
   // Load all feedbacks.
   Future<void> loadFeedbacks() async {
-    emit(
-      state.copyWith(
-        status: FeedbackStatus.loading,
-        clearError: true,
-      ),
-    );
+    emit(state.copyWith(status: FeedbackStatus.loading, clearError: true));
 
     try {
       final feedbacks = await feedbackRepository.getFeedbacks();
 
-      emit(
-        state.copyWith(
-          status: FeedbackStatus.loaded,
-          feedbacks: feedbacks,
-        ),
-      );
+      emit(state.copyWith(status: FeedbackStatus.loaded, feedbacks: feedbacks));
     } catch (e) {
       emit(
         state.copyWith(
@@ -101,12 +78,7 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       return;
     }
 
-    emit(
-      state.copyWith(
-        status: FeedbackStatus.submitting,
-        clearError: true,
-      ),
-    );
+    emit(state.copyWith(status: FeedbackStatus.submitting, clearError: true));
 
     try {
       final feedback = FeedbackModel(

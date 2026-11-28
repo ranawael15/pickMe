@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,11 +7,7 @@ class PlaceFormScreen extends StatefulWidget {
   final String destinationId;
   final Place? place;
 
-  const PlaceFormScreen({
-    super.key,
-    required this.destinationId,
-    this.place,
-  });
+  const PlaceFormScreen({super.key, required this.destinationId, this.place});
 
   @override
   State<PlaceFormScreen> createState() => _PlaceFormScreenState();
@@ -63,9 +58,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
 
     final place = widget.place;
 
-    nameController = TextEditingController(
-      text: place?.name ?? '',
-    );
+    nameController = TextEditingController(text: place?.name ?? '');
 
     descriptionController = TextEditingController(
       text: place?.description ?? '',
@@ -131,10 +124,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 children: [
                   CircleAvatar(
                     backgroundColor: Color(0xFFF8DB69),
-                    child: Icon(
-                      Icons.location_city,
-                      color: Color(0xFF806600),
-                    ),
+                    child: Icon(Icons.location_city, color: Color(0xFF806600)),
                   ),
                   SizedBox(width: 12),
                   Expanded(
@@ -158,17 +148,11 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
               children: const [
                 Text(
                   'Place Imagery *',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'Aspect 16:9',
-                  style: TextStyle(
-                    color: muted,
-                    fontSize: 11,
-                  ),
+                  style: TextStyle(color: muted, fontSize: 11),
                 ),
               ],
             ),
@@ -187,13 +171,8 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.asset(
-                      selectedImage,
-                      fit: BoxFit.cover,
-                    ),
-                    Container(
-                      color: Colors.black.withOpacity(.25),
-                    ),
+                    Image.asset(selectedImage, fit: BoxFit.cover),
+                    Container(color: Colors.black.withOpacity(.25)),
                     const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -216,10 +195,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                         SizedBox(height: 5),
                         Text(
                           'Tap to choose an available image',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 11),
                         ),
                       ],
                     ),
@@ -254,9 +230,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 }
                 return null;
               },
-              decoration: _decoration(
-                'e.g. Sultan Hassan Mosque & Madrasa',
-              ),
+              decoration: _decoration('e.g. Sultan Hassan Mosque & Madrasa'),
             ),
 
             const SizedBox(height: 18),
@@ -269,10 +243,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
               items: categories.map((category) {
                 return DropdownMenuItem(
                   value: category,
-                  child: Text(
-                    category,
-                    style: const TextStyle(fontSize: 13),
-                  ),
+                  child: Text(category, style: const TextStyle(fontSize: 13)),
                 );
               }).toList(),
               onChanged: (value) {
@@ -290,10 +261,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 _label('Curated Description & Tips'),
                 Text(
                   '${descriptionController.text.length}/600',
-                  style: const TextStyle(
-                    fontSize: 10,
-                    color: muted,
-                  ),
+                  style: const TextStyle(fontSize: 10, color: muted),
                 ),
               ],
             ),
@@ -312,13 +280,14 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 }
                 return null;
               },
-              decoration: _decoration(
-                'Highlight architectural details, views, dress code, or tips...',
-              ).copyWith(
-                counterText: '',
-                alignLabelWithHint: true,
-                contentPadding: const EdgeInsets.all(16),
-              ),
+              decoration:
+                  _decoration(
+                    'Highlight architectural details, views, dress code, or tips...',
+                  ).copyWith(
+                    counterText: '',
+                    alignLabelWithHint: true,
+                    contentPadding: const EdgeInsets.all(16),
+                  ),
             ),
 
             const SizedBox(height: 22),
@@ -344,10 +313,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                           ),
                         ),
                       ),
-                      const Text(
-                        'Free Entry',
-                        style: TextStyle(fontSize: 11),
-                      ),
+                      const Text('Free Entry', style: TextStyle(fontSize: 11)),
                       Checkbox(
                         activeColor: const Color(0xFF806600),
                         value: freeEntry,
@@ -365,29 +331,27 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
 
                   const SizedBox(height: 12),
 
-                  const Text(
-                    'Budget Tier',
-                    style: TextStyle(fontSize: 12),
-                  ),
+                  const Text('Budget Tier', style: TextStyle(fontSize: 12)),
 
                   const SizedBox(height: 8),
 
                   DropdownButtonFormField<String>(
                     value: selectedBudget,
                     decoration: _decoration('Budget tier'),
-                    items: const [
-                      'Budget (\$)',
-                      'Moderate (\$\$)',
-                      'Luxury / VIP (\$\$\$)',
-                    ].map((tier) {
-                      return DropdownMenuItem(
-                        value: tier,
-                        child: Text(
-                          tier,
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      );
-                    }).toList(),
+                    items:
+                        const [
+                          'Budget (\$)',
+                          'Moderate (\$\$)',
+                          'Luxury / VIP (\$\$\$)',
+                        ].map((tier) {
+                          return DropdownMenuItem(
+                            value: tier,
+                            child: Text(
+                              tier,
+                              style: const TextStyle(fontSize: 13),
+                            ),
+                          );
+                        }).toList(),
                     onChanged: (value) {
                       if (value != null) {
                         setState(() => selectedBudget = value);
@@ -425,9 +389,9 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
 
                       return null;
                     },
-                    decoration: _decoration('180').copyWith(
-                      prefixText: 'EGP  ',
-                    ),
+                    decoration: _decoration(
+                      '180',
+                    ).copyWith(prefixText: 'EGP  '),
                   ),
                 ],
               ),
@@ -475,10 +439,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
               activeColor: const Color(0xFF806600),
               title: const Text(
                 'Visible to Clients',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
               subtitle: const Text(
                 'Allow clients to see this place',
@@ -520,9 +481,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                     child: ElevatedButton.icon(
                       onPressed: _savePlace,
                       icon: const Icon(Icons.check_circle_outline),
-                      label: Text(
-                        isEditing ? 'Save Changes' : 'Publish Place',
-                      ),
+                      label: Text(isEditing ? 'Save Changes' : 'Publish Place'),
                       style: ElevatedButton.styleFrom(
                         elevation: 2,
                         backgroundColor: primary,
@@ -557,10 +516,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   InputDecoration _decoration(String hint) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: const TextStyle(
-        fontSize: 12,
-        color: Color(0xFF91816C),
-      ),
+      hintStyle: const TextStyle(fontSize: 12, color: Color(0xFF91816C)),
       filled: true,
       fillColor: Colors.white,
       border: OutlineInputBorder(
@@ -573,44 +529,24 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(22),
-        borderSide: const BorderSide(
-          color: primary,
-          width: 1.5,
-        ),
+        borderSide: const BorderSide(color: primary, width: 1.5),
       ),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 16,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
     );
   }
 
-  Widget _timeButton(
-      String label,
-      String value,
-      IconData icon,
-      bool isOpen,
-      ) {
+  Widget _timeButton(String label, String value, IconData icon, bool isOpen) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 11,
-            color: muted,
-          ),
-        ),
+        Text(label, style: const TextStyle(fontSize: 11, color: muted)),
         const SizedBox(height: 8),
         InkWell(
           borderRadius: BorderRadius.circular(30),
           onTap: () => _selectTime(isOpen),
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 16,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
             decoration: BoxDecoration(
               color: peach,
               borderRadius: BorderRadius.circular(30),
@@ -637,14 +573,9 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   }
 
   Future<void> _selectTime(bool isOpen) async {
-    final initial = _parseTime(
-      isOpen ? opensAt : closesAt,
-    );
+    final initial = _parseTime(isOpen ? opensAt : closesAt);
 
-    final picked = await showTimePicker(
-      context: context,
-      initialTime: initial,
-    );
+    final picked = await showTimePicker(context: context, initialTime: initial);
 
     if (picked == null) return;
 
@@ -677,9 +608,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   }
 
   String _formatTime(TimeOfDay time) {
-    final hour = time.hourOfPeriod == 0
-        ? 12
-        : time.hourOfPeriod;
+    final hour = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
 
     final minute = time.minute.toString().padLeft(2, '0');
     final period = time.period == DayPeriod.am ? 'AM' : 'PM';
@@ -705,10 +634,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
             children: [
               const Text(
                 'Choose Place Image',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 18),
               Row(
@@ -753,9 +679,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
       description: descriptionController.text.trim(),
       image: selectedImage,
       category: selectedCategory,
-      price: freeEntry
-          ? 0
-          : double.parse(priceController.text.trim()),
+      price: freeEntry ? 0 : double.parse(priceController.text.trim()),
       freeEntry: freeEntry,
       visible: visible,
       opensAt: opensAt,

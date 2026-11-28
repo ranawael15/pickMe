@@ -1,16 +1,10 @@
-
 import 'package:flutter/material.dart';
 
-class FeedbackAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
+class FeedbackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback onBack;
 
-  const FeedbackAppBar({
-    super.key,
-    required this.title,
-    required this.onBack,
-  });
+  const FeedbackAppBar({super.key, required this.title, required this.onBack});
 
   static const Color darkBrown = Color(0xFF302318);
 
@@ -21,11 +15,7 @@ class FeedbackAppBar extends StatelessWidget
       elevation: 0,
       leading: IconButton(
         onPressed: onBack,
-        icon: const Icon(
-          Icons.arrow_back_ios_new,
-          color: darkBrown,
-          size: 20,
-        ),
+        icon: const Icon(Icons.arrow_back_ios_new, color: darkBrown, size: 20),
       ),
       title: Text(
         title,

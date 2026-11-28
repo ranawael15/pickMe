@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class FeedbackTextField extends StatelessWidget {
@@ -25,32 +24,21 @@ class FeedbackTextField extends StatelessWidget {
       maxLines: 5,
       decoration: InputDecoration(
         hintText: 'Share your experience with us...',
-        hintStyle: TextStyle(
-          color: Colors.grey.shade500,
-          fontSize: 14,
-        ),
+        hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
         filled: true,
         fillColor: Colors.white,
         contentPadding: const EdgeInsets.all(16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(
-            color: yellowColor,
-          ),
+          borderSide: BorderSide(color: yellowColor),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(
-            color: yellowColor,
-            width: 1.2,
-          ),
+          borderSide: BorderSide(color: yellowColor, width: 1.2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(
-            color: darkBrown,
-            width: 1.5,
-          ),
+          borderSide: BorderSide(color: darkBrown, width: 1.5),
         ),
         counterText: '',
       ),

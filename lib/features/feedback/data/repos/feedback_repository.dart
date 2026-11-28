@@ -1,4 +1,3 @@
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/feedback_model.dart';
@@ -6,15 +5,11 @@ import '../models/feedback_model.dart';
 class FeedbackRepository {
   final SupabaseClient supabase;
 
-  FeedbackRepository({
-    required this.supabase,
-  });
+  FeedbackRepository({required this.supabase});
 
   // Submit a new feedback to Supabase.
   Future<void> submitFeedback(FeedbackModel feedback) async {
-    await supabase
-        .from('feedbacks')
-        .insert(feedback.toMap());
+    await supabase.from('feedbacks').insert(feedback.toMap());
   }
 
   // Get all feedbacks from Supabase.
@@ -25,9 +20,7 @@ class FeedbackRepository {
         .order('created_at', ascending: false);
 
     return response
-        .map<FeedbackModel>(
-          (item) => FeedbackModel.fromMap(item),
-    )
+        .map<FeedbackModel>((item) => FeedbackModel.fromMap(item))
         .toList();
   }
 }

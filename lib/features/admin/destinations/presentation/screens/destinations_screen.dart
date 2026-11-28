@@ -44,10 +44,7 @@ class DestinationsScreen extends StatelessWidget {
                             SizedBox(height: 4),
                             Text(
                               'Manage all travel hubs available to clients',
-                              style: TextStyle(
-                                color: muted,
-                                fontSize: 13,
-                              ),
+                              style: TextStyle(color: muted, fontSize: 13),
                             ),
                           ],
                         ),
@@ -57,8 +54,7 @@ class DestinationsScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) =>
-                              const DestinationFormScreen(),
+                              builder: (_) => const DestinationFormScreen(),
                             ),
                           );
                         },
@@ -94,19 +90,14 @@ class DestinationsScreen extends StatelessWidget {
                         fontSize: 13,
                         color: Color(0xFF9A8B79),
                       ),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: muted,
-                      ),
+                      prefixIcon: const Icon(Icons.search, color: muted),
                       filled: true,
                       fillColor: peach,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 16,
-                      ),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                   ),
                 ),
@@ -116,28 +107,23 @@ class DestinationsScreen extends StatelessWidget {
                 Expanded(
                   child: destinations.isEmpty
                       ? const Center(
-                    child: Text(
-                      'No destinations found',
-                      style: TextStyle(color: muted),
-                    ),
-                  )
+                          child: Text(
+                            'No destinations found',
+                            style: TextStyle(color: muted),
+                          ),
+                        )
                       : ListView.builder(
-                    padding: const EdgeInsets.fromLTRB(
-                      22, 0, 22, 25,
-                    ),
-                    itemCount: destinations.length,
-                    itemBuilder: (context, index) {
-                      final destination = destinations[index];
+                          padding: const EdgeInsets.fromLTRB(22, 0, 22, 25),
+                          itemCount: destinations.length,
+                          itemBuilder: (context, index) {
+                            final destination = destinations[index];
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 17),
-                        child: _destinationCard(
-                          context,
-                          destination,
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 17),
+                              child: _destinationCard(context, destination),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             );
@@ -147,10 +133,7 @@ class DestinationsScreen extends StatelessWidget {
     );
   }
 
-  Widget _destinationCard(
-      BuildContext context,
-      Destination destination,
-      ) {
+  Widget _destinationCard(BuildContext context, Destination destination) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -172,9 +155,8 @@ class DestinationsScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => DestinationDetailsScreen(
-                    destinationId: destination.id,
-                  ),
+                  builder: (_) =>
+                      DestinationDetailsScreen(destinationId: destination.id),
                 ),
               );
             },
@@ -259,11 +241,7 @@ class DestinationsScreen extends StatelessWidget {
             destination.description,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 12,
-              height: 1.5,
-              color: muted,
-            ),
+            style: const TextStyle(fontSize: 12, height: 1.5, color: muted),
           ),
 
           const SizedBox(height: 15),
@@ -280,9 +258,8 @@ class DestinationsScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => DestinationFormScreen(
-                          destination: destination,
-                        ),
+                        builder: (_) =>
+                            DestinationFormScreen(destination: destination),
                       ),
                     );
                   },
@@ -295,10 +272,7 @@ class DestinationsScreen extends StatelessWidget {
                   icon: Icons.delete_outline,
                   background: const Color(0xFFFFEEEE),
                   foreground: Colors.red,
-                  onTap: () => _confirmDelete(
-                    context,
-                    destination,
-                  ),
+                  onTap: () => _confirmDelete(context, destination),
                 ),
               ),
             ],
@@ -313,9 +287,8 @@ class DestinationsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => DestinationDetailsScreen(
-                      destinationId: destination.id,
-                    ),
+                    builder: (_) =>
+                        DestinationDetailsScreen(destinationId: destination.id),
                   ),
                 );
               },
@@ -355,19 +328,14 @@ class DestinationsScreen extends StatelessWidget {
     );
   }
 
-  void _confirmDelete(
-      BuildContext context,
-      Destination destination,
-      ) {
+  void _confirmDelete(BuildContext context, Destination destination) {
     showDialog(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
           backgroundColor: background,
           title: const Text('Delete Destination?'),
-          content: Text(
-            'Are you sure you want to delete ${destination.name}?',
-          ),
+          content: Text('Are you sure you want to delete ${destination.name}?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
@@ -375,16 +343,13 @@ class DestinationsScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                context
-                    .read<DestinationsCubit>()
-                    .deleteDestination(destination.id);
+                context.read<DestinationsCubit>().deleteDestination(
+                  destination.id,
+                );
 
                 Navigator.pop(dialogContext);
               },
-              child: const Text(
-                'Delete',
-                style: TextStyle(color: Colors.red),
-              ),
+              child: const Text('Delete', style: TextStyle(color: Colors.red)),
             ),
           ],
         );

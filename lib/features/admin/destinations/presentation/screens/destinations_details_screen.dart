@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,10 +10,7 @@ import '../../../places/presentation/screens/place_form_screen.dart';
 class DestinationDetailsScreen extends StatelessWidget {
   final String destinationId;
 
-  const DestinationDetailsScreen({
-    super.key,
-    required this.destinationId,
-  });
+  const DestinationDetailsScreen({super.key, required this.destinationId});
 
   static const Color background = Color(0xFFFFF8F4);
   static const Color primary = Color(0xFFF8DB69);
@@ -24,16 +20,12 @@ class DestinationDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final destination = context
-        .watch<DestinationsCubit>()
-        .getDestination(destinationId);
+    final destination = context.watch<DestinationsCubit>().getDestination(
+      destinationId,
+    );
 
     if (destination == null) {
-      return const Scaffold(
-        body: Center(
-          child: Text('Destination not found'),
-        ),
-      );
+      return const Scaffold(body: Center(child: Text('Destination not found')));
     }
 
     return Scaffold(
@@ -159,10 +151,7 @@ class DestinationDetailsScreen extends StatelessWidget {
                           fontSize: 19,
                           fontWeight: FontWeight.bold,
                           shadows: [
-                            Shadow(
-                              color: Colors.black54,
-                              blurRadius: 8,
-                            ),
+                            Shadow(color: Colors.black54, blurRadius: 8),
                           ],
                         ),
                       ),
@@ -196,9 +185,8 @@ class DestinationDetailsScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => PlaceFormScreen(
-                        destinationId: destinationId,
-                      ),
+                      builder: (_) =>
+                          PlaceFormScreen(destinationId: destinationId),
                     ),
                   );
                 },
@@ -233,10 +221,7 @@ class DestinationDetailsScreen extends StatelessWidget {
                             SizedBox(height: 4),
                             Text(
                               'Add an attraction, landmark, or activity',
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: muted,
-                              ),
+                              style: TextStyle(fontSize: 11, color: muted),
                             ),
                           ],
                         ),
@@ -270,11 +255,7 @@ class DestinationDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _statCard(
-      String value,
-      String label,
-      IconData icon,
-      ) {
+  Widget _statCard(String value, String label, IconData icon) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 17),
@@ -284,11 +265,7 @@ class DestinationDetailsScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Icon(
-              icon,
-              color: const Color(0xFF806600),
-              size: 20,
-            ),
+            Icon(icon, color: const Color(0xFF806600), size: 20),
             const SizedBox(height: 5),
             Text(
               value,
@@ -298,13 +275,7 @@ class DestinationDetailsScreen extends StatelessWidget {
                 color: dark,
               ),
             ),
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 11,
-                color: muted,
-              ),
-            ),
+            Text(label, style: const TextStyle(fontSize: 11, color: muted)),
           ],
         ),
       ),
@@ -340,11 +311,7 @@ class DestinationDetailsScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Positioned(
-                left: 9,
-                top: 9,
-                child: _chip(place.budgetTier),
-              ),
+              Positioned(left: 9, top: 9, child: _chip(place.budgetTier)),
               Positioned(
                 right: 9,
                 top: 9,
@@ -357,9 +324,7 @@ class DestinationDetailsScreen extends StatelessWidget {
               Positioned(
                 right: 9,
                 bottom: 9,
-                child: _chip(
-                  place.visible ? '● Visible' : '● Hidden',
-                ),
+                child: _chip(place.visible ? '● Visible' : '● Hidden'),
               ),
             ],
           ),
@@ -380,10 +345,7 @@ class DestinationDetailsScreen extends StatelessWidget {
               ),
               Text(
                 '#${place.id}',
-                style: const TextStyle(
-                  fontSize: 9,
-                  color: muted,
-                ),
+                style: const TextStyle(fontSize: 9, color: muted),
               ),
             ],
           ),
@@ -394,11 +356,7 @@ class DestinationDetailsScreen extends StatelessWidget {
             place.description,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 11,
-              height: 1.5,
-              color: muted,
-            ),
+            style: const TextStyle(fontSize: 11, height: 1.5, color: muted),
           ),
 
           const SizedBox(height: 12),
@@ -407,10 +365,7 @@ class DestinationDetailsScreen extends StatelessWidget {
             spacing: 7,
             runSpacing: 7,
             children: [
-              _smallTag(
-                Icons.category_outlined,
-                place.category,
-              ),
+              _smallTag(Icons.category_outlined, place.category),
               _smallTag(
                 Icons.access_time,
                 '${place.opensAt} - ${place.closesAt}',
@@ -421,10 +376,7 @@ class DestinationDetailsScreen extends StatelessWidget {
           const SizedBox(height: 12),
 
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: peach,
               borderRadius: BorderRadius.circular(25),
@@ -433,13 +385,8 @@ class DestinationDetailsScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    place.visible
-                        ? '◉ Shown to users'
-                        : '○ Hidden from users',
-                    style: const TextStyle(
-                      fontSize: 10,
-                      color: muted,
-                    ),
+                    place.visible ? '◉ Shown to users' : '○ Hidden from users',
+                    style: const TextStyle(fontSize: 10, color: muted),
                   ),
                 ),
                 IconButton(
@@ -455,10 +402,7 @@ class DestinationDetailsScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: const Icon(
-                    Icons.edit_outlined,
-                    size: 19,
-                  ),
+                  icon: const Icon(Icons.edit_outlined, size: 19),
                 ),
                 IconButton(
                   visualDensity: VisualDensity.compact,
@@ -480,18 +424,13 @@ class DestinationDetailsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => PlaceDetailsScreen(
-                      placeId: place.id,
-                    ),
+                    builder: (_) => PlaceDetailsScreen(placeId: place.id),
                   ),
                 );
               },
               child: const Text(
                 'View Details →',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Color(0xFF806600),
-                ),
+                style: TextStyle(fontSize: 11, color: Color(0xFF806600)),
               ),
             ),
           ),
@@ -502,10 +441,7 @@ class DestinationDetailsScreen extends StatelessWidget {
 
   Widget _chip(String text) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 9,
-        vertical: 6,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
       decoration: BoxDecoration(
         color: const Color(0xFFFFE78B),
         borderRadius: BorderRadius.circular(20),
@@ -523,10 +459,7 @@ class DestinationDetailsScreen extends StatelessWidget {
 
   Widget _smallTag(IconData icon, String text) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 9,
-        vertical: 6,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
       decoration: BoxDecoration(
         color: const Color(0xFFFFEBDD),
         borderRadius: BorderRadius.circular(20),
@@ -536,13 +469,7 @@ class DestinationDetailsScreen extends StatelessWidget {
         children: [
           Icon(icon, size: 12, color: muted),
           const SizedBox(width: 4),
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: 9,
-              color: muted,
-            ),
-          ),
+          Text(text, style: const TextStyle(fontSize: 9, color: muted)),
         ],
       ),
     );
@@ -566,10 +493,7 @@ class DestinationDetailsScreen extends StatelessWidget {
                 context.read<PlacesCubit>().deletePlace(place.id);
                 Navigator.pop(dialogContext);
               },
-              child: const Text(
-                'Delete',
-                style: TextStyle(color: Colors.red),
-              ),
+              child: const Text('Delete', style: TextStyle(color: Colors.red)),
             ),
           ],
         );

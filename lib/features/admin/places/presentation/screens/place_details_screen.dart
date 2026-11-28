@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,10 +6,7 @@ import '../../logic/cubit/places_cubit.dart';
 class PlaceDetailsScreen extends StatelessWidget {
   final String placeId;
 
-  const PlaceDetailsScreen({
-    super.key,
-    required this.placeId,
-  });
+  const PlaceDetailsScreen({super.key, required this.placeId});
 
   static const Color background = Color(0xFFFFF8F4);
   static const Color primary = Color(0xFFF8DB69);
@@ -23,11 +19,7 @@ class PlaceDetailsScreen extends StatelessWidget {
     final place = context.watch<PlacesCubit>().getPlace(placeId);
 
     if (place == null) {
-      return const Scaffold(
-        body: Center(
-          child: Text('Place not found'),
-        ),
-      );
+      return const Scaffold(body: Center(child: Text('Place not found')));
     }
 
     return Scaffold(
@@ -84,10 +76,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                       children: [
                         const Text(
                           'DESTINATION LANDMARK',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.white,
-                          ),
+                          style: TextStyle(fontSize: 10, color: Colors.white),
                         ),
                         const SizedBox(height: 5),
                         Text(
@@ -146,10 +135,7 @@ class PlaceDetailsScreen extends StatelessWidget {
 
           Text(
             place.category,
-            style: const TextStyle(
-              fontSize: 13,
-              color: muted,
-            ),
+            style: const TextStyle(fontSize: 13, color: muted),
           ),
 
           const SizedBox(height: 20),
@@ -229,10 +215,7 @@ class PlaceDetailsScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(
-                      Icons.access_time,
-                      color: Color(0xFF806600),
-                    ),
+                    const Icon(Icons.access_time, color: Color(0xFF806600)),
                     const SizedBox(width: 8),
                     const Expanded(
                       child: Text(
@@ -327,27 +310,16 @@ class PlaceDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _infoCard(
-      IconData icon,
-      String value,
-      String label,
-      ) {
+  Widget _infoCard(IconData icon, String value, String label) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 7,
-        vertical: 13,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 13),
       decoration: BoxDecoration(
         color: peach,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
         children: [
-          Icon(
-            icon,
-            size: 18,
-            color: const Color(0xFF806600),
-          ),
+          Icon(icon, size: 18, color: const Color(0xFF806600)),
           const SizedBox(height: 7),
           Text(
             value,
@@ -362,10 +334,7 @@ class PlaceDetailsScreen extends StatelessWidget {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 9,
-              color: muted,
-            ),
+            style: const TextStyle(fontSize: 9, color: muted),
           ),
         ],
       ),
@@ -378,10 +347,7 @@ class PlaceDetailsScreen extends StatelessWidget {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(
-              fontSize: 12,
-              color: muted,
-            ),
+            style: const TextStyle(fontSize: 12, color: muted),
           ),
         ),
         Expanded(
@@ -417,10 +383,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                 Navigator.pop(dialogContext);
                 Navigator.pop(context);
               },
-              child: const Text(
-                'Delete',
-                style: TextStyle(color: Colors.red),
-              ),
+              child: const Text('Delete', style: TextStyle(color: Colors.red)),
             ),
           ],
         );

@@ -223,7 +223,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Generate My Trip',
+                            'Generate My Trip Plans',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

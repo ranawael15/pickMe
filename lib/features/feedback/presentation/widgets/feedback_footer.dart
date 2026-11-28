@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class FeedbackFooter extends StatelessWidget {
@@ -13,18 +12,11 @@ class FeedbackFooter extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.lock_outline,
-            color: secondaryBrown,
-            size: 16,
-          ),
+          Icon(Icons.lock_outline, color: secondaryBrown, size: 16),
           SizedBox(width: 7),
           Text(
             'Private & encrypted',
-            style: TextStyle(
-              color: secondaryBrown,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: secondaryBrown, fontSize: 12),
           ),
         ],
       ),
